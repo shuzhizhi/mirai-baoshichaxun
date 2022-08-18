@@ -65,6 +65,8 @@ class program
             string x = message;
             x = x.Replace(bot.QQ , "");
             string str = System.Text.RegularExpressions.Regex.Replace(x, @"[^0-9]+", "");
+            long str2 =long.Parse(str);
+            str2=str2 + 76561197960265728;
             if (System.Text.RegularExpressions.Regex.IsMatch(str, "^[0-9]+$"))
             {
 
@@ -72,7 +74,7 @@ class program
 
                 //    await MessageManager.SendGroupMessageAsync(receiver.Id, str);
 
-                string str1 = "https://api.opendota.com/api/players/" + str;
+             /*   string str1 = "https://api.opendota.com/api/players/" + str;
                 string url = str1;
                 //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
 
@@ -163,9 +165,9 @@ class program
                     o = "0";
                     //  Int64 b =  Convert.ToInt64("76561197960265728") + Convert.ToInt64(str);
                 }
-
+             */
                 // string c = "http://gemtd.ppbizon.com/gemtd/201901/heros/get/@" + Convert.ToString(b);
-                string c = "http://gemtd.ppbizon.com/gemtd/201901/heros/get/@" + b;
+                string c = "http://gemtd.ppbizon.com/gemtd/202203/heros/get/@" + str2;
                
 
                 WebResponse? responsea;
@@ -240,8 +242,8 @@ class program
                         m2++;
                     }
                 }
-                d = d.Substring(d.IndexOf("英雄"));
-                d = d.Substring(0, d.IndexOf("ti8"));
+               // d = d.Substring(d.IndexOf("英雄"));
+             //   d = d.Substring(0, d.IndexOf("ti8"));
                 d = d.Replace("{", "\r\n");
                 d = d.Replace("}", "\r\n");
                 d = d.Replace("\"", "");
@@ -269,7 +271,7 @@ class program
 
                 // d = Encoding.UTF8.GetString(Encoding.Default.GetBytes(d));
 
-                string c1 = "http://gemtd.ppbizon.com/gemtd/201807/mmr/get/@" + b;
+                string c1 = "http://gemtd.ppbizon.com/gemtd/201807/mmr/get/@" + str2;
 
                 WebResponse? responsea1;
 
@@ -311,7 +313,7 @@ class program
                 d1 = d1.Replace("}]}", "");
                 d1 = d1.Replace("\"", "");
 
-                d = "查询的ID昵称为:" + o + "\r\n" + d + d1;
+                d = "查询的结果为:"  + "\r\n" + d + d1;
                 try
                 {
 
