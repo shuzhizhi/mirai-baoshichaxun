@@ -13,7 +13,51 @@ using Mirai.Net.Data.Events.Concretes.Message;
 
 class program
 {
-    
+    static string[] a = new string[10];
+    static int[] b = new int[10];
+    static string juedou = "0";
+    static int renshu = 0;
+    static int huoshengzhe = 1;
+    public static string zhaoshi()
+    {
+        string a = "万荒殒神箭,万荒裂空箭,雷霆半月斩,五右卫门​,流星拳,流星群,星尘锁,升龙霸​,圣龙辉半月斩,三昧真火,​蛟龙出海,凤舞九天,​惊涛骇浪,​冰雪风暴,​阳光普照,​横扫千军,​群魔乱舞,飞沙走石,移形换影,五虎啸天印,​暴雨梨花,点石成金,​金刚护体,天外飞仙,天神附体,​移花接木,​青铜护甲,​法象天地,开天辟地,神龙摆尾,黑虎掏心,飞龙在天,绝对零度,时空咆哮,空间切割,断崖之剑,制裁之石,画龙点睛,千钧澄玉宇,五雷轰顶,大日如来真经,万象天引,​排山倒海,人剑合一,万剑归宗,横扫八方,吞云吐​雾,千龙闹海​,雷霆之怒,雷霆万钧​,​时空穿梭,时空扭曲​,狂风绝息斩​,妙手回春​,雷赦九霄,万箭齐发​,云起龙腾​,烈焰龙腾爆,流云金龙破,轰天降龙霸,蔽日​行龙绝,时光飞驰,时光倒流​,​雷厉风行,爆炎毁灭,红莲​爆破,龙战于野​,​刃心,剑心,枪心​,斩魂,​剑花怒放,​陨灭六星,陨落星辰​,剑心纵横​,阴阳​相生,阴阳​太极,​阴阳无极,天机变,死亡切割,​天地四象,​百蛇出洞,​裁决之剑,​无常锁骨链,千里一线,​风影残绝,灵犀一剑​,碎骨,秋水,​凝水,残雪,​破虚指,电光毒龙钻,毒龙钻,紫电雷爆​,生生不息,​一枝独秀,神圣之光,裁决之剑,劈风斩浪,神​圣之光,凤翔云天,翱翔云天​,拔刀斩​,剑走偏锋​,孤注一掷​,天山折梅手,抽刀断水​,飘零风暴,冰雪飘零​,流云化鱼​,冰天雪地​,十殿阎魔,剑尘星落​,剑神​坠星辰,落日余晖​,阴阳双生极,生生不息​,剑息,地狱炎龙冲,​浪潮流沙,天玄地剑​,鬼神破灭斩,天旋地转,​星光璀璨,山崩裂地砍​,独步九影​,疾风切割,疾影步​,暴冰拳,七情六伤,逐风九影,回影镖,震爆锤,影龙刃,血龙爪,火绝地刺,巴蛇吞象,滔天巨浪,滔滔不绝,鬼神毁灭戟,剑心雨泪,阴森骨爪,断桥残雪​,暴炎霸王冲,剑浪滔天绝,幻生九魂步";
+        string[] n = a.Split(',');
+        Random ran = new Random();
+        int RandKey = ran.Next(1, 100);
+        return n[RandKey];
+    }
+    static int GetRandomSeed()
+    {
+        byte[] bytes = new byte[4];
+        System.Security.Cryptography.RNGCryptoServiceProvider rng = new System.Security.Cryptography.RNGCryptoServiceProvider();
+        rng.GetBytes(bytes);
+        return BitConverter.ToInt32(bytes, 0);
+
+    }
+    static int jianchesiwang()
+    {
+        int c = 0;
+        int d = 0;
+
+        for (int i = 0; i < 8; i++)
+        {
+            if (b[i] > 0)
+            {
+                c++;
+                d = i;
+            }
+
+        }
+        if (c == 1)
+        {
+            return d;
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
     static async Task Main(string[] args)
     {
         using var bot = new MiraiBot
@@ -25,7 +69,7 @@ class program
         try
         {
             // System.Threading.Thread.Sleep(60000);
-           
+
             Console.WriteLine($"本程序已启动");
             await bot.LaunchAsync();
             Console.WriteLine($"机器人连接成功");
@@ -37,21 +81,21 @@ class program
             await bot.LaunchAsync();
             Console.WriteLine($"机器人连接成功");
         }
-       
+
         bot.MessageReceived
     .OfType<GroupMessageReceiver>()
     .Subscribe(async receiver =>
     {
-       
+
         var message = "0";
         if (receiver.MessageChain.OfType<PlainMessage>().Any())
         {
-             message = receiver.MessageChain.OfType<PlainMessage>().First().Text;
+            message = receiver.MessageChain.OfType<PlainMessage>().First().Text;
         }
         else
         {
-             message = "0";
-            
+            message = "0";
+
         }
 
         Console.WriteLine("收到消息是" + message);
@@ -63,10 +107,10 @@ class program
         if (message.Contains("查询宝石数据"))
         {
             string x = message;
-            x = x.Replace(bot.QQ , "");
+            x = x.Replace(bot.QQ, "");
             string str = System.Text.RegularExpressions.Regex.Replace(x, @"[^0-9]+", "");
-            long str2 =long.Parse(str);
-            str2=str2 + 76561197960265728;
+            long str2 = long.Parse(str);
+            str2 = str2 + 76561197960265728;
             if (System.Text.RegularExpressions.Regex.IsMatch(str, "^[0-9]+$"))
             {
 
@@ -74,101 +118,101 @@ class program
 
                 //    await MessageManager.SendGroupMessageAsync(receiver.Id, str);
 
-             /*   string str1 = "https://api.opendota.com/api/players/" + str;
-                string url = str1;
-                //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
+                /*   string str1 = "https://api.opendota.com/api/players/" + str;
+                   string url = str1;
+                   //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
 
-                WebResponse? response;
-
-
-
-                HttpWebRequest request = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
-                try
-                {
-                    response = request.GetResponse();
-                }
-                catch (WebException ex)
-                {
-                    response = ex.Response;
-                    
-                }
-                // WebResponse response = request.GetResponse();
-                string y;
-                if (response == null)
-                {
-                    y = "0";
-                }
-                else
-                {
-                    StreamReader reader = new StreamReader(response.GetResponseStream());
-                     y = reader.ReadToEnd();//a为转换网页的整个文档  
-                }
-                
-                string a = "0";
-                if (y.Contains("7656"))
-                {
-                    a = y;
-                }
-                else
-                {
-
-                    string str2 = "https://steamid.io/lookup/U:1:" + str;
-                    string ur2 = str2;
-                    //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
-
-                    WebResponse response2;
+                   WebResponse? response;
 
 
 
-                    HttpWebRequest request2 = (HttpWebRequest)WebRequest.CreateDefault(new Uri(ur2));
-                    try
-                    {
-                        response2 = request2.GetResponse();
-                    }
-                    catch (WebException ex)
-                    {
-                        response2 = ex.Response;
-                    }
-                    // WebResponse response = request.GetResponse();
-                    // StreamReader reader2 = new StreamReader(response2.GetResponseStream());
-                    // string y2 = reader2.ReadToEnd();//a为转换网页的整个文档  
-                    string y4;
-                    if (response2 == null)
-                    {
-                        y4 = "0";
-                    }
-                    else
-                    {
-                        StreamReader reader = new StreamReader(response.GetResponseStream());
-                        y4 = reader.ReadToEnd();//a为转换网页的整个文档  
-                    }
-                    a = y4;
-                }
-                string h = "7656";//h为64位id的头文档
-                int g = a.IndexOf(h);//g为64位id的位置数值
-                int changdu = a.Length;
-                string b = "0";
-                string o = "0";
-                if (changdu >= 17)
-                {
-                     b = a.Substring(g, 17);
-                    //   await MessageManager.SendGroupMessageAsync(receiver.Id, b);
-                    string i = "personaname\":\"";//i位昵称的前置8位文档
-                    int j = a.IndexOf(i);//j为昵称的前置8位数值
-                    o = a.Substring(j + 14, 100);
-                    int p = o.IndexOf('"');
-                    o = o.Remove(p);
-                }
-                else
-                {
-                     b = "123456789";
-                    o = "0";
-                    //  Int64 b =  Convert.ToInt64("76561197960265728") + Convert.ToInt64(str);
-                }
-             */
+                   HttpWebRequest request = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
+                   try
+                   {
+                       response = request.GetResponse();
+                   }
+                   catch (WebException ex)
+                   {
+                       response = ex.Response;
+
+                   }
+                   // WebResponse response = request.GetResponse();
+                   string y;
+                   if (response == null)
+                   {
+                       y = "0";
+                   }
+                   else
+                   {
+                       StreamReader reader = new StreamReader(response.GetResponseStream());
+                        y = reader.ReadToEnd();//a为转换网页的整个文档  
+                   }
+
+                   string a = "0";
+                   if (y.Contains("7656"))
+                   {
+                       a = y;
+                   }
+                   else
+                   {
+
+                       string str2 = "https://steamid.io/lookup/U:1:" + str;
+                       string ur2 = str2;
+                       //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
+
+                       WebResponse response2;
+
+
+
+                       HttpWebRequest request2 = (HttpWebRequest)WebRequest.CreateDefault(new Uri(ur2));
+                       try
+                       {
+                           response2 = request2.GetResponse();
+                       }
+                       catch (WebException ex)
+                       {
+                           response2 = ex.Response;
+                       }
+                       // WebResponse response = request.GetResponse();
+                       // StreamReader reader2 = new StreamReader(response2.GetResponseStream());
+                       // string y2 = reader2.ReadToEnd();//a为转换网页的整个文档  
+                       string y4;
+                       if (response2 == null)
+                       {
+                           y4 = "0";
+                       }
+                       else
+                       {
+                           StreamReader reader = new StreamReader(response.GetResponseStream());
+                           y4 = reader.ReadToEnd();//a为转换网页的整个文档  
+                       }
+                       a = y4;
+                   }
+                   string h = "7656";//h为64位id的头文档
+                   int g = a.IndexOf(h);//g为64位id的位置数值
+                   int changdu = a.Length;
+                   string b = "0";
+                   string o = "0";
+                   if (changdu >= 17)
+                   {
+                        b = a.Substring(g, 17);
+                       //   await MessageManager.SendGroupMessageAsync(receiver.Id, b);
+                       string i = "personaname\":\"";//i位昵称的前置8位文档
+                       int j = a.IndexOf(i);//j为昵称的前置8位数值
+                       o = a.Substring(j + 14, 100);
+                       int p = o.IndexOf('"');
+                       o = o.Remove(p);
+                   }
+                   else
+                   {
+                        b = "123456789";
+                       o = "0";
+                       //  Int64 b =  Convert.ToInt64("76561197960265728") + Convert.ToInt64(str);
+                   }
+                */
                 // string c = "http://gemtd.ppbizon.com/gemtd/201901/heros/get/@" + Convert.ToString(b);
                 string c = "http://gemtd.ppbizon.com/gemtd/202203/heros/get/@" + str2;
-               
+
 
                 WebResponse? responsea;
 
@@ -194,7 +238,7 @@ class program
                     y3 = readera.ReadToEnd();//a为转换网页的整个文档  
                 }
                 // WebResponse response = request.GetResponse();
-               // StreamReader reader = new StreamReader(responsea.GetResponseStream());
+                // StreamReader reader = new StreamReader(responsea.GetResponseStream());
                 string d = y3;//d为转换网页的整个文档   
                 Encoding gb2312 = Encoding.GetEncoding(936);
                 d = gb2312.GetString(Encoding.Default.GetBytes(d));
@@ -242,8 +286,8 @@ class program
                         m2++;
                     }
                 }
-               // d = d.Substring(d.IndexOf("英雄"));
-             //   d = d.Substring(0, d.IndexOf("ti8"));
+                // d = d.Substring(d.IndexOf("英雄"));
+                //   d = d.Substring(0, d.IndexOf("ti8"));
                 d = d.Replace("{", "\r\n");
                 d = d.Replace("}", "\r\n");
                 d = d.Replace("\"", "");
@@ -297,7 +341,7 @@ class program
                     y2 = reader.ReadToEnd();//a为转换网页的整个文档  
                 }
                 // WebResponse response = request.GetResponse();
-               // StreamReader readera1 = new StreamReader(responsea1.GetResponseStream());
+                // StreamReader readera1 = new StreamReader(responsea1.GetResponseStream());
                 string d1 = y2;//d为转换网页的整个文档   
 
                 d1 = gb2312.GetString(Encoding.Default.GetBytes(d1));
@@ -313,21 +357,21 @@ class program
                 d1 = d1.Replace("}]}", "");
                 d1 = d1.Replace("\"", "");
 
-                d = "查询的结果为:"  + "\r\n" + d + d1;
+                d = "查询的结果为:" + "\r\n" + d + d1;
                 try
                 {
 
-                await MessageManager.SendGroupMessageAsync(receiver.Id, d);
+                    await MessageManager.SendGroupMessageAsync(receiver.Id, d);
 
                 }
 
                 catch (Exception ex)
                 {
-                    await MessageManager.SendGroupMessageAsync("145368121",  "发送消息失败"+DateTime.Now);
-                    Console.WriteLine( "发送失败"+DateTime.Now);
+                    await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败" + DateTime.Now);
+                    Console.WriteLine("发送失败" + DateTime.Now);
                 };
 
-               
+
 
                 d = "0";
 
@@ -337,32 +381,35 @@ class program
         {
             string x = message;
             x = x.Replace(bot.QQ, "");
-         
-                string str = System.Text.RegularExpressions.Regex.Replace(x, @"[^0-9]+", "");
-                if (System.Text.RegularExpressions.Regex.IsMatch(str, "^[0-9]+$"))
+
+            string str = System.Text.RegularExpressions.Regex.Replace(x, @"[^0-9]+", "");
+            long str2 = long.Parse(str);
+            str2 = str2 + 76561197960265728;
+            str = str2.ToString();
+            if (System.Text.RegularExpressions.Regex.IsMatch(str, "^[0-9]+$"))
+            {
+
+
+
+                //    await MessageManager.SendGroupMessageAsync(receiver.Id, str);
+
+                string str1 = "https://api.opendota.com/api/players/" + str;
+                string url = str1;
+                //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
+
+                WebResponse response;
+
+
+
+                HttpWebRequest request = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
+                try
                 {
-
-
-
-                    //    await MessageManager.SendGroupMessageAsync(receiver.Id, str);
-
-                    string str1 = "https://api.opendota.com/api/players/" + str;
-                    string url = str1;
-                    //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
-
-                    WebResponse response;
-
-
-
-                    HttpWebRequest request = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
-                    try
-                    {
-                        response = request.GetResponse();
-                    }
-                    catch (WebException ex)
-                    {
-                        response = ex.Response;
-                    }
+                    response = request.GetResponse();
+                }
+                catch (WebException ex)
+                {
+                    response = ex.Response;
+                }
                 string y2;
                 if (response == null)
                 {
@@ -374,33 +421,33 @@ class program
                     y2 = reader1.ReadToEnd();//a为转换网页的整个文档  
                 }
                 // WebResponse response = request.GetResponse();
-               // StreamReader reader = new StreamReader(response.GetResponseStream());
-                    string y = y2;//a为转换网页的整个文档  
-                    string a = "0";
-                    if (y.Contains("7656"))
+                // StreamReader reader = new StreamReader(response.GetResponseStream());
+                string y = y2;//a为转换网页的整个文档  
+                string a = "0";
+                if (y.Contains("7656"))
+                {
+                    a = y;
+                }
+                else
+                {
+
+                    string str3 = "https://steamid.io/lookup/U:1:" + str;
+                    string ur2 = str3;
+                    //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
+
+                    WebResponse response2;
+
+
+
+                    HttpWebRequest request2 = (HttpWebRequest)WebRequest.CreateDefault(new Uri(ur2));
+                    try
                     {
-                        a = y;
+                        response2 = request2.GetResponse();
                     }
-                    else
+                    catch (WebException ex)
                     {
-
-                        string str2 = "https://steamid.io/lookup/U:1:" + str;
-                        string ur2 = str2;
-                        //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
-
-                        WebResponse response2;
-
-
-
-                        HttpWebRequest request2 = (HttpWebRequest)WebRequest.CreateDefault(new Uri(ur2));
-                        try
-                        {
-                            response2 = request2.GetResponse();
-                        }
-                        catch (WebException ex)
-                        {
-                            response2 = ex.Response;
-                        }
+                        response2 = ex.Response;
+                    }
                     string y3;
                     if (response2 == null)
                     {
@@ -412,215 +459,215 @@ class program
                         y3 = reader.ReadToEnd();//a为转换网页的整个文档  
                     }
                     // WebResponse response = request.GetResponse();
-                   // StreamReader reader2 = new StreamReader(response2.GetResponseStream());
-                      //  string y2 = reader2.ReadToEnd();//a为转换网页的整个文档  
-                        a = y3;
+                    // StreamReader reader2 = new StreamReader(response2.GetResponseStream());
+                    //  string y2 = reader2.ReadToEnd();//a为转换网页的整个文档  
+                    a = y3;
+                }
+
+
+                /* string h = "7656";//h为64位id的头文档
+                 int g = a.IndexOf(h);//g为64位id的位置数值
+                 string b = a.Substring(g, 17);
+                 //   await MessageManager.SendGroupMessageAsync(receiver.Id, b);
+                 string i = "personaname\":\"";//i位昵称的前置8位文档
+                 int j = a.IndexOf(i);//j为昵称的前置8位数值
+                 string o = a.Substring(j + 14, 100);
+                 int p = o.IndexOf('"');
+                 o = o.Remove(p);*/
+                //  Int64 b =  Convert.ToInt64("76561197960265728") + Convert.ToInt64(str);
+
+
+                // string c = "http://gemtd.ppbizon.com/gemtd/201901/heros/get/@" + Convert.ToString(b);
+                string c = "http://gemtd.ppbizon.com/sm/201901/heros/get/@" + str;
+
+                WebResponse responsea;
+
+
+
+                HttpWebRequest requesta = (HttpWebRequest)WebRequest.CreateDefault(new Uri(c));
+                try
+                {
+                    responsea = requesta.GetResponse();
+                }
+                catch (WebException ex)
+                {
+                    responsea = ex.Response;
+                }
+                // WebResponse response = request.GetResponse();
+                StreamReader readera = new StreamReader(responsea.GetResponseStream());
+                string d = readera.ReadToEnd();//d为转换网页的整个文档   
+                Encoding gb2312 = Encoding.GetEncoding(936);
+                d = gb2312.GetString(Encoding.Default.GetBytes(d));
+                // byte[] bytes = gb2312.GetBytes(d);
+                //    d = Encoding.UTF8.GetString(Encoding.Default.GetBytes(d));
+
+
+                //   await MessageManager.SendGroupMessageAsync(receiver.Id, d);
+                // string str = "1.234E0，2.05E1，-3.0E2，-1.1E-2";
+                //   string d1 = d.Replace("Hello", "Ni hao");//将子字符串Hello 替换为Ni Hao。
+                string l = "a407,技能窃取,a208,照明弹,a405,无敌,a406,海妖之歌,a101,冲刺,a101_help,3秒内提高移动速度200,a102,刹车,a101_help,瞬间停住,a103,加速光环,a101_help,1000范围内友军移动速度增加50,a104,减速光环,a101_help,1000范围内敌军移动速度降低100,a201,冰冻,a101_help,使500范围内敌人3秒无法移动,a202,击退,a101_help,击退自己附近的敌人,a203,时光倒流,a101_help,使自己回到四秒前位置,a204,信仰之跃,a101_help,向前跳跃,a205,折光,a206,链接,a207,粘滞,a101_help,10秒内抵挡一次伤害,a301,召唤,a101_help,立刻召唤任意一名队友到你身边,a302,传送,a101_help,立刻传送到一个队友身边,a303,投掷,a101_help,把一个队友扔到另一个队友身上,a305,标记,a304,消失,a401,沉默,a101_help,使2000范围内敌人沉默5秒,a402,复活,a101_help,随机复活一名死去的队友,a403,融化,a404,重生,beginner_hero,入门级 滑冰手,ameteur_hero,业余级 滑冰手,pro_hero,职业级 滑冰手,master_hero,大师级 滑冰手,beginner_ability,入门级 技能,ameteur_ability,业余级 技能,pro_ability,职业级 技能,master_ability,大师级 技能,beginner_effect,入门级 特效,ameteur_effect,业余级 特效,pro_effect,职业级 特效,master_effect,大师级 特效,OhIgota,噢耶，我获得了,h101,船长的鹦鹉,h102,宝石教父Zard-,h103,神兔,h104,粉嫩蝾螈,h105,酒桶浣熊,h106,毛毛鱼,h107,海盗船,h108,达士奇,h109,萌蛛,h110,翠花|红色,h111,白羽鸡,h112,绿毛龟,h113,空心恶魔人,h114,歪脖鸵鸟,h115,跳脚企鹅,h116,胡小桃,h117,小红毛,h118,极速蜗牛,h119,松鼠卫兵,h120,丹顶鹤,h401,NAVI黄鼬,h402,MVP滑板火烈鸟,h403,IG小火龙,h404,LGD的金萌萌,h405,VG飞狐侠|红色,h406,VP北极熊,h407,EG的麋鹿,h201,末日宝宝,h202,赏金宝宝,h203,屠夫宝宝,h204,血魔宝宝,h205,小白虎,h206,海民宝宝,h207,黑鸟宝宝,h208,虚空宝宝,h209,修补匠宝宝,h210,小星月,h301,魔典小龙,h302,斑竹队长,h303,滑板鲨鱼,h304,炸毛小鸡,h305,摇摆蘑菇,h306,坚果松鼠,h307,翠玉小龙,h308,巨鸟多多,h309,机械战驴,h310,基拉魔法师,h211,两栖鱼童,h408,石头人|天辉,h409,石头人|夜魇,h121,双头恶犬,h311,爆眼章鱼,h212,剧毒宝宝,h410,火星车|绿色,h411,火星车|红色,h122,飞僵小宝,h412,对映体|天使,h413,对映体|恶魔,h123,雷克,h312,金龟子,h124,快递青蛙跳跳,h213,不屈战犬,h313,毛茸茸的肥羊羊,h125,赤兔,h126,迅捷魔童,h314,魔暴龙,h127,狂暴野猪,h214,獭龙奥斯基,h215,死神,h315,基王海盗,h216,冰龙宝宝,h316,摇摆的驴革米,h217,忠诚高山牦牛,h317,伐士奇,h415,啾啾,h416,死亡仙知,h414,VG飞狐侠|青色,h318,肉山宝宝,h417,金银狐灵|黑色,h418,金银狐灵|白色,h319,小灰熊,h219,骏马,h320,白色龙蝶,h321,红色龙蝶,h419,风神飞镰,h420,抬轿兄弟,h220,忠诚之犬瓦尔迪,h221,八戒,h222,羊羊羊,h223,草泥马拉玛,h218,桃树精,h128,碧磷|入门,h224,碧磷|业余,h322,碧磷|职业,h421,碧磷|大师,h323,招财猫,h444,百变泽驴斯,h499,死亡仙知|纯金,h129,蠕行水母,h225,胆小南瓜人,h422,长耳兔妖,h226,蟹小蜗|海螺,h227,蟹小蜗|草鞋,h228,蟹小蜗|穷鬼盾,h324,蟹小蜗|死灵书,h325,蟹小蜗|飞鞋,h326,蟹小蜗|莲花球,h423,蟹小蜗|玲珑心,h424,蟹小蜗|冰眼,h425,蟹小蜗|冠军盾,h134,矿车鼠|矿车,h234,矿车鼠|蜡烛,h335,矿车鼠|挖掘机,h428,矿车鼠|纯金e101,圣洁精华,e102,玛瑙光泽,e103,芳晓之庆,e104,水晶裂痕,e105,腐化触须,e106,毒虫肆虐,e107,夜魇暗潮腐化,e108,夜魇暗潮荒芜,e201,暗淡幻象,e202,冥魂大帝,e203,翡翠外质,e204,祸乱之源,e205,毒蕈之径,e206,2012冠军之辉,e207,2013冠军之辉,e208,2014冠军之辉,e301,骄阳之炎,e302,嬉戏蝴蝶,e303,冰女特效,e304,幸福之赐,e305,绽放莲花,e306,迎霜冰雪,e307,燃烧末日,e308,鱼泡泡,e401,燃焰之触,e402,霜寒之触,e403,迈达斯之触,e404,离子之汽,e109,大地灵气,e110,蓝色风暴,e309,紫色激情,e310,白雪飘零,e311,一股邪火,e209,霓虹蝴蝶,e210,旋转火花,e312,金币飞舞,e313,光辉岁月,e314,紫色星云,e315,噩梦缠绕,e111,一起哈啤,e112,宝石光泽,e211,雾气环绕,e212,迷幻缠绕,e405,光芒万丈,e316,星星,e113,污污污污,e499,金龙鱼,e114,雾里看花,e317,心心相印,e318,2017冠军之辉,myskater,我的滑冰手车库,more_heros,通过老司机考试（铜牌、银牌、金牌、铂金）以获得更多车库位置,not_available_now,面板崩溃，暂不可用,h327,迅捷远足毛驴,h229,竭智法师,h130,驴法师,h328,天猫地狗,h230,蓝心白隼,h131,丰臀公主,h426,绽放树精,h329,万圣树群,h231,莲花人,h132,焚牙树精,h330,咬人箱|大嘴,h331,咬人箱|洛克,h232,咬人箱|甲虫,h133,咬人箱|机械,h427,小恶魔|飞毯,h333,小恶魔|海龟,h334,小恶魔|螃蟹,h233,小恶魔|鹦鹉,h332,布狗,e319,灿若繁星,e320,大漩涡,e407,飞沙走石,e406,星光蓝宝石,e409,血之环,e408,暗月来袭e213,小家碧玉,e214,欲火焚身,e321,通灵术,e410,雪精灵,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
+                string[] n = l.Split(',');
+                //    d = "rarity_1,普通";
+                int m = 0;
+                for (m = 0; m < 510; m++)
+                {
+                    if (d.Contains(n[m]))
+                    {
+                        d = d.Replace(n[m], n[m + 1]);
+                        m++;
+
+
                     }
+                }
+                /*string l1 = "h101,npc_dota_hero_enchantress,h102,npc_dota_hero_puck,h103,npc_dota_hero_omniknight,h104,npc_dota_hero_wisp,h105,npc_dota_hero_ogre_magi,h106,npc_dota_hero_lion,h107,npc_dota_hero_keeper_of_the_light,h108,npc_dota_hero_rubick,h109,npc_dota_hero_jakiro,h110,npc_dota_hero_sand_king,h111,npc_dota_hero_ancient_apparition,h112,npc_dota_hero_earth_spirit,h201,npc_dota_hero_crystal_maiden,h203,npc_dota_hero_templar_assassin,h204,npc_dota_hero_lina,h205,npc_dota_hero_tidehunter,h206,npc_dota_hero_naga_siren,h207,npc_dota_hero_phoenix,h208,npc_dota_hero_dazzle,h209,npc_dota_hero_warlock,h210,npc_dota_hero_necrolyte,h211,npc_dota_hero_lich,h212,npc_dota_hero_furion,h213,npc_dota_hero_venomancer,h214,npc_dota_hero_kunkka,h215,npc_dota_hero_axe,h216,npc_dota_hero_slark,h217,npc_dota_hero_viper,h218,npc_dota_hero_tusk,h219,npc_dota_hero_abaddon,h220,npc_dota_hero_winter_wyvern,h221,npc_dota_hero_ember_spirit,h301,npc_dota_hero_windrunner,h302,npc_dota_hero_phantom_assassin,h303,npc_dota_hero_sniper,h304,npc_dota_hero_sven,h306,npc_dota_hero_mirana,h307,npc_dota_hero_nevermore,h308,npc_dota_hero_queenofpain,h309,npc_dota_hero_juggernaut,h310,npc_dota_hero_pudge,h311,npc_dota_hero_shredder,h312,npc_dota_hero_slardar,h313,npc_dota_hero_antimage,h314,npc_dota_hero_bristleback,h315,npc_dota_hero_lycan,h316,npc_dota_hero_lone_druid,h317,npc_dota_hero_storm_spirit,h318,npc_dota_hero_obsidian_destroyer,h319,npc_dota_hero_grimstroke,h401,npc_dota_hero_vengefulspirit,h402,npc_dota_hero_invoker,h403,npc_dota_hero_alchemist,h404,npc_dota_hero_spectre,h405,npc_dota_hero_morphling,h406,npc_dota_hero_techies,h407,npc_dota_hero_chaos_knight,h408,npc_dota_hero_faceless_void,h409,npc_dota_hero_legion_commander,h410,npc_dota_hero_monkey_king,h411,npc_dota_hero_razor,h412,npc_dota_hero_tinker,h413,npc_dota_hero_pangolier,h414,npc_dota_hero_dark_willow,h415,npc_dota_hero_terrorblade,h416,npc_dota_hero_enigma,t401,奶酪,t402,贪魔蛋,t403,值钱的贝壳,t301,南瓜,t302,雪球,t303,沙滩椅,t304,地渊孢林,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
+                string[] n1 = l1.Split(',');
+                //    d = "rarity_1,普通";
+                int m1 = 0;
+                for (m1 = 0; m1 < 151; m1++)
+                {
+                    if (d.Contains(n1[m1]))
+                    {
+                        d = d.Replace(n1[m1], n1[m1 + 1]);
+                        m1++;
+                    }
+                }
+
+                string l2 = "common_toy,普通 玩具,rare_toy,稀有 玩具,mythical_toy,神话 玩具,legendary_toy,传说 玩具,npc_dota_hero_enchantress,魅惑魔女,npc_dota_hero_puck,精灵龙,npc_dota_hero_omniknignt,全能骑士,npc_dota_hero_crystal_maiden,水晶室女,npc_dota_hero_templar_assassin,圣堂刺客,npc_dota_hero_lina,秀逗魔导士,npc_dota_hero_windrunner,风行者,npc_dota_hero_phantom_assassin,幻影刺客,npc_dota_hero_sniper,狙击手,npc_dota_hero_vengefulspirit,复仇之魂,npc_dota_hero_sven,流浪剑客,npc_dota_hero_invoker,召唤师,npc_dota_hero_dazzle,暗影牧师,npc_dota_hero_riki,隐形刺客,npc_dota_hero_wisp,精灵守卫,npc_dota_hero_ogre_magi,食人魔法师,npc_dota_hero_lion,恶魔巫师,npc_dota_hero_phoenix,凤凰,npc_dota_hero_necrolyte,死灵法师,npc_dota_hero_lich,巫妖,npc_dota_hero_furion,先知,npc_dota_hero_mirana,月之女祭司,npc_dota_hero_nevermore,影魔,npc_dota_hero_queenofpain,痛苦女王,npc_dota_hero_alchemist,炼金,npc_dota_hero_spectre,幽鬼,npc_dota_hero_omniknight,全能骑士,npc_dota_hero_warlock,术士,npc_dota_hero_keeper_of_the_light,光之守卫,npc_dota_hero_rubick,大魔导师,npc_dota_hero_venomancer,剧毒,npc_dota_hero_kunkka,海军上将,npc_dota_hero_juggernaut,剑圣,npc_dota_hero_pudge,屠夫,npc_dota_hero_shredder,伐木机,npc_dota_hero_morphling,变体精灵,npc_dota_hero_techies,地精工程师,npc_dota_hero_tidehunter,潮汐猎人,npc_dota_hero_naga_siren,娜迦海妖,npc_dota_hero_chaos_knight,混沌骑士,npc_dota_hero_faceless_void,虚空假面,npc_dota_hero_slardar,鱼人守卫,npc_dota_hero_antimage,敌法师,npc_dota_hero_axe,斧王,npc_dota_hero_slark,鱼人夜行者,npc_dota_hero_legion_commander,军团指挥官,npc_dota_hero_jakiro,双头龙,npc_dota_hero_sand_king,沙王,npc_dota_hero_viper,冥界亚龙,npc_dota_hero_tusk,巨牙海民,npc_dota_hero_abaddon,死亡骑士,npc_dota_hero_bristleback,刚背兽,npc_dota_hero_lycan,狼人,npc_dota_hero_lone_druid,利爪德鲁伊,npc_dota_hero_monkey_king,齐天大圣,npc_dota_hero_razor,闪电幽魂,npc_dota_hero_tinker,地精修补匠,npc_dota_hero_dark_willow,邪影芳灵,npc_dota_hero_pangolier,石鳞剑士,npc_dota_hero_ancient_apparition,远古冰魄,npc_dota_hero_earth_spirit,大地之灵,npc_dota_hero_winter_wyvern,寒冬飞龙,npc_dota_hero_ember_spirit,灰烬之灵,npc_dota_hero_storm_spirit,风暴之灵,npc_dota_hero_obsidian_destroyer,殁境神噬者,npc_dota_hero_terrorblade,灵魂守卫,npc_dota_hero_enigma,谜团,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
+                string[] n2 = l2.Split(',');
+                //    d = "rarity_1,普通";
+                int m2 = 0;
+                for (m2 = 0; m2 < 160; m2++)
+                {
+                    if (d.Contains(n2[m2]))
+                    {
+                        d = d.Replace(n2[m2], n2[m2 + 1]);
+                        m2++;
+                    }
+                }*/
+                d = d.Substring(d.IndexOf("skater_count"));
+                //  d = d.Substring(0, d.IndexOf("is_black"));
+                d = d.Replace("\\", "");
+                string l2 = "fansheng,繁盛,biaoche,飚车,wuyu,无语,zuie,罪恶,xuebeng,雪崩,fennu,愤怒,huohuan,火环,lengmo,冷漠,chongzhuang,冲撞,welcome_AA,第1季 冰蘑菇,welcome_LICH,第2季 椰子树,welcome_SOIL,第3季 狗尾草,welcome_PRAC,训练场╭(′▽`)╭(′▽`)╯,welcome_EDIT,地图工坊╭(′▽`)╭(′▽`)╯,welcome_TEST1,铜牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST2,银牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST3,金牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST4,铂金老司机考试╭(′▽`)╭(′▽`)╯,welcome_BEGINNER,新手村╭(′▽`)╭(′▽`)╯,welcome_CUSTOM,试玩工坊地图╭(′▽`)╭(′▽`)╯,welcome_RANDOM,随机闯关╭(′▽`)╭(′▽`)╯,welcome_NEXUS1F,第4季 地瓜叶,welcome_FROST,第5季 火山木,cm_1,冰蘑菇 1级,cm_2,冰蘑菇 2级,cm_3,冰蘑菇 3级,cm_4,冰蘑菇 4级,cm_5,冰蘑菇 5级,lina_1,椰子树 1级,lina_2,椰子树 2级,lina_3,椰子树 3级,lina_4,椰子树 4级,lina_5,椰子树 5级,tinker_1,火山木 1级,tinker_2,火山木 2级,tinker_3,火山木 3级,tinker_4,火山木 4级,tinker_5,火山木 5级,qop_1,狗尾草 1级,qop_2,狗尾草 2级,qop_3,狗尾草 3级,qop_4,狗尾草 4级,qop_5,狗尾草 5级,ns_1,地瓜叶 1级,ns_2,地瓜叶 2级,ns_3,地瓜叶 3级,ns_4,地瓜叶 4级,ns_5,地瓜叶 5级,BRD,黑石深渊,DOTA,刀塔堡垒,CSGO,污手街,C6,魔导师平台,QOP,黑翼血环,NEXUS1F,魔枢第1层,NEXUS2F,魔枢第2层,NEXUS3F,魔枢第3层,NEXUS4F,魔枢第4层,NEXUS5F,魔枢第5层,NEXUS6F,魔枢第6层,NEXUS7F,魔枢第7层,NEXUS8F,魔枢第8层,NEXUS9F,魔枢第9层,NEXUS10F,魔枢第10层,NEXUS11F,魔枢第11层,NEXUS12F,魔枢第12层,NEXUS13F,魔枢第13层,NS,魔枢顶层,STORMEYE,风暴之眼,FROST,霜火岭,DRAGON,龙眠神殿,SKYREACH,通天峰,FARM,半山农场,NEWZUG,新祖尔格拉布,MTH,蔑潮港,TINKER,诺莫瑞根,NASSAR,纳沙尔海湾,WINTER,洛丹伦的冬天,AUTUMN,洛丹伦的秋天,SUMMER,洛丹伦的夏天,SPRING,洛丹伦的春天,PANDA,潘达利亚,TLJD,提拉加德海峡,MUSIC,维克雷斯庄园,ELEPHANT,魔法动物店,CHICK,消逝冰川,UCURVE,阿坤达神殿,CATMIAO,喵人藏身处,MACDON,冥宫,TRAIL,蛇行峡谷,GO1234,日暮广场,MARIO,奇妙玩具店,CUBES,冬幕节小栈,BEGINNER,新手村,BEGINNER_TWO,新手村2,GO,选择线路,GOONE,滑冰手的家,RACE,对战模式,PRAC,练习,AA,艾尔文河,AA2,艾尔文河2,POM,白虎寺,TEST1,青铜试炼,TEST2,白银试炼,TEST3,黄金试炼,WIN1,冰蘑菇通关,WIN2,椰子树通关,WIN3,狗尾草通关,WIN4,地瓜叶通关,WIN5,火山木通关,WINRAN,随机闯关通关,ALLEY,逆风小径,KRZ,卡拉赞,AZARA,艾萨拉,FAIRE,暗月马戏团,DUST,尘泥沼泽,X!!,希利苏斯,CAVERN,时光之穴,BEACH,破碎海滩,STORM,大漩涡,TUNDRA,北风苔原,MOROGH,丹莫罗,NAXX,纳克萨玛斯,NEEDLE,千针石林,ULDUM,奥丹姆,VASJIR,瓦斯琪尔,TEMPLE,黑暗神殿,DARK,黑海岸,ZUG,祖尔格拉布,TUSK,雪流平原,TUSK2,雪流平原2,SS,祖达克,SSOLD,旧祖达克,LICH,冬拥湖,WR,紫罗兰哨站,PUCK,晶歌森林,PUCK2,晶歌森林2,BB,止水河,BB2,止水河2,MORPH,河流之心,MORPH2,河流之心2,FUR,扭木广场,FUR2,扭木广场2,LIGHT,达拉然,DS,风暴峭壁,WINGS,旋云之巅,CM,冰冠冰川,TECH,加基森,TECH2,加基森2,RAZOR,剃刀高地,ENIGMA,冬泉谷,VS,流沙岗哨,VS2,流沙岗哨2,SF,影月谷,SF2,影月谷2,SK,深沙平原,BS,塔纳利斯,BS2,塔纳利斯2,KUNKKA,热砂港,GYRO,科赞,MEEPO,安戈洛环形山,MEEPO2,安戈洛环形山2,PHX,海加尔山,PHX2,海加尔山2,LINA,火焰之地,TA,翡翠梦境,TA2,翡翠梦境2,GIANT,巨兽岛,SOIL,恐惧废土,DEEP,深岩之洲,ASHEN,灰谷,SEABED,烁光海床,ZANGAR,赞加沼泽,ZANGAR2,赞加沼泽2,RKLZ,重返卡拉赞,fansheng,繁盛,biaoche,飚车,wuyu,无语,zuie,罪恶,xuebeng,雪崩,fennu,愤怒,huohuan,火环,lengmo,冷漠,chongzhuang,冲撞,welcome,欢迎来到萌萌的滑冰场╭(′▽`)╯╭(′▽`)╯,welcome_AA,第1季 冰蘑菇,welcome_LICH,第2季 椰子树,welcome_SOIL,第3季 狗尾草,welcome_PRAC,训练场╭(′▽`)╭(′▽`)╯,welcome_EDIT,地图工坊╭(′▽`)╭(′▽`)╯,welcome_TEST1,铜牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST2,银牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST3,金牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST4,铂金老司机考试╭(′▽`)╭(′▽`)╯,welcome_BEGINNER,新手村╭(′▽`)╭(′▽`)╯,welcome_CUSTOM,试玩工坊地图╭(′▽`)╭(′▽`)╯,welcome_RANDOM,随机闯关╭(′▽`)╭(′▽`)╯,welcome_NEXUS1F,第4季 地瓜叶,welcome_FROST,第5季 火山木,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1";
+                string[] n2 = l2.Split(',');
+                //    d = "rarity_1,普通";
+                int ma = 0;
+                for (ma = 0; ma < 260; ma++)
+                {
+                    if (d.Contains(n2[ma]))
+                    {
+                        d = d.Replace(n2[ma], n2[ma + 1]);
+                        ma++;
 
 
-                    string h = "7656";//h为64位id的头文档
-                    int g = a.IndexOf(h);//g为64位id的位置数值
-                    string b = a.Substring(g, 17);
-                    //   await MessageManager.SendGroupMessageAsync(receiver.Id, b);
-                    string i = "personaname\":\"";//i位昵称的前置8位文档
-                    int j = a.IndexOf(i);//j为昵称的前置8位数值
-                    string o = a.Substring(j + 14, 100);
-                    int p = o.IndexOf('"');
-                    o = o.Remove(p);
-                    //  Int64 b =  Convert.ToInt64("76561197960265728") + Convert.ToInt64(str);
+                    }
+                }
+
+                d = d.Replace("{", "\r\n");
+
+                //  d = d.Replace("preice", "\r\n这项不知道");
+                //    d = d.Replace("compenice", "\r\n这项也不知道");
+                d = d.Replace("}", "\r\n");
+                d = d.Replace("hero_sea", "信使");
+                d = d.Replace("ability", "");
+                d = d.Replace("shell", "\r\n贝壳：");
+                d = d.Replace("crab_season", "\r\n日常地图：");
+                d = d.Replace("effect", "");
+
+                d = d.Replace("skater_count", "\r\n信使数量");
+                d = d.Replace("onduty_hero", "\r\n当前信使");
+
+                d = d.Replace("task", "\r\n任务");
+                d = d.Replace("test", "\r\n驾照测试（秒）");
+                d = d.Replace("cm", "\r\n冰女通关任务（秒）");
+                d = d.Replace("lina", "\r\n火女通关任务（秒）");
+                d = d.Replace("qop", "\r\n女王通关任务（秒）");
+                d = d.Replace("tinker", "\r\n地精修补匠通关任务（秒）");
+                d = d.Replace("random", "\r\n随机关卡通关任务（秒）");
+                d = d.Replace("season", "\r\n赛季剩余时间（秒）");
+                d = d.Replace("daily", "\r\n日常剩余时间（秒）");
+                d = d.Replace("driver", "\r\n驾照等级");
+                //     d = d.Replace("rush", "\r\n这项还是不知道");
+                d = d.Replace("ns", "\r\n夜魔通关任务（秒）");
+
+                d = d.Replace("\"", "");
+                d = d.Replace(":", "");
+                d = d.Replace("]", "");
+                d = d.Replace("[", "");
+                d = d.Replace(",", "");
+                d = d.Replace("crab_level", "日常关卡：");
+                d = d.Replace("rank", "\r\n排名");
+                d = d.Replace("rush_content", "\r\n英雄难度主题：\r\n");
+                d = d.Replace("rush", "\r\n英雄难度主题刷新时间");
+                d = d.Replace("extend", "\r\n英雄挑战任务刷新时间");
+                d = d.Replace("badge", "\r\n英雄难度徽章");
+                d = d.Replace("ticket", "\r\n英雄难度门票");
+                d = d.Replace("camera", "\r\n视角状态");
+                d = d.Replace("distance", "\r\n视角高度");
+                d = d.Replace("go_teachfalse", "");
+                d = d.Replace("go_teachtrue", "");
+                d = d.Replace("preice0compenice0", "");
+                d = d.Replace("is_black0wed_icenullcount0", "");
+                d = d.Replace("beginnerfalsepre_cardnull", "");
+                d = d.Replace("ice", "\r\n冰块");
+                //  await MessageManager.SendGroupMessageAsync(receiver.Id, n[50]);
+                //  await MessageManager.SendGroupMessageAsync(receiver.Id, n[51]);
+                //  await MessageManager.SendGroupMessageAsync(receiver.Id, n[52]);
+                //   await MessageManager.SendGroupMessageAsync(receiver.Id, n[34]);
+
+                // d = Encoding.UTF8.GetString(Encoding.Default.GetBytes(d));
+
+                /*    string c1 = "http://gemtd.ppbizon.com/gemtd/201807/mmr/get/@" + b;
+
+                    WebResponse responsea1;
 
 
-                    // string c = "http://gemtd.ppbizon.com/gemtd/201901/heros/get/@" + Convert.ToString(b);
-                    string c = "http://gemtd.ppbizon.com/sm/201901/heros/get/@" + b;
 
-                    WebResponse responsea;
-
-
-
-                    HttpWebRequest requesta = (HttpWebRequest)WebRequest.CreateDefault(new Uri(c));
+                    HttpWebRequest requesta1 = (HttpWebRequest)WebRequest.CreateDefault(new Uri(c1));
                     try
                     {
-                        responsea = requesta.GetResponse();
+                        responsea1 = requesta1.GetResponse();
                     }
                     catch (WebException ex)
                     {
-                        responsea = ex.Response;
+                        responsea1 = ex.Response;
                     }
                     // WebResponse response = request.GetResponse();
-                    StreamReader readera = new StreamReader(responsea.GetResponseStream());
-                    string d = readera.ReadToEnd();//d为转换网页的整个文档   
-                    Encoding gb2312 = Encoding.GetEncoding(936);
-                    d = gb2312.GetString(Encoding.Default.GetBytes(d));
-                    // byte[] bytes = gb2312.GetBytes(d);
-                    //    d = Encoding.UTF8.GetString(Encoding.Default.GetBytes(d));
+                    StreamReader readera1 = new StreamReader(responsea1.GetResponseStream());
+                    string d1 = readera1.ReadToEnd();//d为转换网页的整个文档   
 
+                    d1 = gb2312.GetString(Encoding.Default.GetBytes(d1));
+                    d1 = d1.Substring(d1.IndexOf("match") + 8);
+                    d1 = d1.Replace("mmr", "\r\n隐藏分");
+                    d1 = d1.Replace("rankall", "总排位");
+                    d1 = d1.Replace("rankcoop", "组队排位");
+                    d1 = d1.Replace("rankrace", "比赛排位");
+                    d1 = d1.Replace("all_level", "总体等级");
+                    d1 = d1.Replace("coop_level", "组队等级");
+                    d1 = d1.Replace("race_level", "比赛等级");
+                    d1 = d1.Replace("score", "分数");
+                    d1 = d1.Replace("}]}", "");
+                    d1 = d1.Replace("\"", "");*/
 
-                    //   await MessageManager.SendGroupMessageAsync(receiver.Id, d);
-                    // string str = "1.234E0，2.05E1，-3.0E2，-1.1E-2";
-                    //   string d1 = d.Replace("Hello", "Ni hao");//将子字符串Hello 替换为Ni Hao。
-                    string l = "a407,技能窃取,a208,照明弹,a405,无敌,a406,海妖之歌,a101,冲刺,a101_help,3秒内提高移动速度200,a102,刹车,a101_help,瞬间停住,a103,加速光环,a101_help,1000范围内友军移动速度增加50,a104,减速光环,a101_help,1000范围内敌军移动速度降低100,a201,冰冻,a101_help,使500范围内敌人3秒无法移动,a202,击退,a101_help,击退自己附近的敌人,a203,时光倒流,a101_help,使自己回到四秒前位置,a204,信仰之跃,a101_help,向前跳跃,a205,折光,a206,链接,a207,粘滞,a101_help,10秒内抵挡一次伤害,a301,召唤,a101_help,立刻召唤任意一名队友到你身边,a302,传送,a101_help,立刻传送到一个队友身边,a303,投掷,a101_help,把一个队友扔到另一个队友身上,a305,标记,a304,消失,a401,沉默,a101_help,使2000范围内敌人沉默5秒,a402,复活,a101_help,随机复活一名死去的队友,a403,融化,a404,重生,beginner_hero,入门级 滑冰手,ameteur_hero,业余级 滑冰手,pro_hero,职业级 滑冰手,master_hero,大师级 滑冰手,beginner_ability,入门级 技能,ameteur_ability,业余级 技能,pro_ability,职业级 技能,master_ability,大师级 技能,beginner_effect,入门级 特效,ameteur_effect,业余级 特效,pro_effect,职业级 特效,master_effect,大师级 特效,OhIgota,噢耶，我获得了,h101,船长的鹦鹉,h102,宝石教父Zard-,h103,神兔,h104,粉嫩蝾螈,h105,酒桶浣熊,h106,毛毛鱼,h107,海盗船,h108,达士奇,h109,萌蛛,h110,翠花|红色,h111,白羽鸡,h112,绿毛龟,h113,空心恶魔人,h114,歪脖鸵鸟,h115,跳脚企鹅,h116,胡小桃,h117,小红毛,h118,极速蜗牛,h119,松鼠卫兵,h120,丹顶鹤,h401,NAVI黄鼬,h402,MVP滑板火烈鸟,h403,IG小火龙,h404,LGD的金萌萌,h405,VG飞狐侠|红色,h406,VP北极熊,h407,EG的麋鹿,h201,末日宝宝,h202,赏金宝宝,h203,屠夫宝宝,h204,血魔宝宝,h205,小白虎,h206,海民宝宝,h207,黑鸟宝宝,h208,虚空宝宝,h209,修补匠宝宝,h210,小星月,h301,魔典小龙,h302,斑竹队长,h303,滑板鲨鱼,h304,炸毛小鸡,h305,摇摆蘑菇,h306,坚果松鼠,h307,翠玉小龙,h308,巨鸟多多,h309,机械战驴,h310,基拉魔法师,h211,两栖鱼童,h408,石头人|天辉,h409,石头人|夜魇,h121,双头恶犬,h311,爆眼章鱼,h212,剧毒宝宝,h410,火星车|绿色,h411,火星车|红色,h122,飞僵小宝,h412,对映体|天使,h413,对映体|恶魔,h123,雷克,h312,金龟子,h124,快递青蛙跳跳,h213,不屈战犬,h313,毛茸茸的肥羊羊,h125,赤兔,h126,迅捷魔童,h314,魔暴龙,h127,狂暴野猪,h214,獭龙奥斯基,h215,死神,h315,基王海盗,h216,冰龙宝宝,h316,摇摆的驴革米,h217,忠诚高山牦牛,h317,伐士奇,h415,啾啾,h416,死亡仙知,h414,VG飞狐侠|青色,h318,肉山宝宝,h417,金银狐灵|黑色,h418,金银狐灵|白色,h319,小灰熊,h219,骏马,h320,白色龙蝶,h321,红色龙蝶,h419,风神飞镰,h420,抬轿兄弟,h220,忠诚之犬瓦尔迪,h221,八戒,h222,羊羊羊,h223,草泥马拉玛,h218,桃树精,h128,碧磷|入门,h224,碧磷|业余,h322,碧磷|职业,h421,碧磷|大师,h323,招财猫,h444,百变泽驴斯,h499,死亡仙知|纯金,h129,蠕行水母,h225,胆小南瓜人,h422,长耳兔妖,h226,蟹小蜗|海螺,h227,蟹小蜗|草鞋,h228,蟹小蜗|穷鬼盾,h324,蟹小蜗|死灵书,h325,蟹小蜗|飞鞋,h326,蟹小蜗|莲花球,h423,蟹小蜗|玲珑心,h424,蟹小蜗|冰眼,h425,蟹小蜗|冠军盾,h134,矿车鼠|矿车,h234,矿车鼠|蜡烛,h335,矿车鼠|挖掘机,h428,矿车鼠|纯金e101,圣洁精华,e102,玛瑙光泽,e103,芳晓之庆,e104,水晶裂痕,e105,腐化触须,e106,毒虫肆虐,e107,夜魇暗潮腐化,e108,夜魇暗潮荒芜,e201,暗淡幻象,e202,冥魂大帝,e203,翡翠外质,e204,祸乱之源,e205,毒蕈之径,e206,2012冠军之辉,e207,2013冠军之辉,e208,2014冠军之辉,e301,骄阳之炎,e302,嬉戏蝴蝶,e303,冰女特效,e304,幸福之赐,e305,绽放莲花,e306,迎霜冰雪,e307,燃烧末日,e308,鱼泡泡,e401,燃焰之触,e402,霜寒之触,e403,迈达斯之触,e404,离子之汽,e109,大地灵气,e110,蓝色风暴,e309,紫色激情,e310,白雪飘零,e311,一股邪火,e209,霓虹蝴蝶,e210,旋转火花,e312,金币飞舞,e313,光辉岁月,e314,紫色星云,e315,噩梦缠绕,e111,一起哈啤,e112,宝石光泽,e211,雾气环绕,e212,迷幻缠绕,e405,光芒万丈,e316,星星,e113,污污污污,e499,金龙鱼,e114,雾里看花,e317,心心相印,e318,2017冠军之辉,myskater,我的滑冰手车库,more_heros,通过老司机考试（铜牌、银牌、金牌、铂金）以获得更多车库位置,not_available_now,面板崩溃，暂不可用,h327,迅捷远足毛驴,h229,竭智法师,h130,驴法师,h328,天猫地狗,h230,蓝心白隼,h131,丰臀公主,h426,绽放树精,h329,万圣树群,h231,莲花人,h132,焚牙树精,h330,咬人箱|大嘴,h331,咬人箱|洛克,h232,咬人箱|甲虫,h133,咬人箱|机械,h427,小恶魔|飞毯,h333,小恶魔|海龟,h334,小恶魔|螃蟹,h233,小恶魔|鹦鹉,h332,布狗,e319,灿若繁星,e320,大漩涡,e407,飞沙走石,e406,星光蓝宝石,e409,血之环,e408,暗月来袭e213,小家碧玉,e214,欲火焚身,e321,通灵术,e410,雪精灵,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
-                    string[] n = l.Split(',');
-                    //    d = "rarity_1,普通";
-                    int m = 0;
-                    for (m = 0; m < 510; m++)
-                    {
-                        if (d.Contains(n[m]))
-                        {
-                            d = d.Replace(n[m], n[m + 1]);
-                            m++;
-
-
-                        }
-                    }
-                    /*string l1 = "h101,npc_dota_hero_enchantress,h102,npc_dota_hero_puck,h103,npc_dota_hero_omniknight,h104,npc_dota_hero_wisp,h105,npc_dota_hero_ogre_magi,h106,npc_dota_hero_lion,h107,npc_dota_hero_keeper_of_the_light,h108,npc_dota_hero_rubick,h109,npc_dota_hero_jakiro,h110,npc_dota_hero_sand_king,h111,npc_dota_hero_ancient_apparition,h112,npc_dota_hero_earth_spirit,h201,npc_dota_hero_crystal_maiden,h203,npc_dota_hero_templar_assassin,h204,npc_dota_hero_lina,h205,npc_dota_hero_tidehunter,h206,npc_dota_hero_naga_siren,h207,npc_dota_hero_phoenix,h208,npc_dota_hero_dazzle,h209,npc_dota_hero_warlock,h210,npc_dota_hero_necrolyte,h211,npc_dota_hero_lich,h212,npc_dota_hero_furion,h213,npc_dota_hero_venomancer,h214,npc_dota_hero_kunkka,h215,npc_dota_hero_axe,h216,npc_dota_hero_slark,h217,npc_dota_hero_viper,h218,npc_dota_hero_tusk,h219,npc_dota_hero_abaddon,h220,npc_dota_hero_winter_wyvern,h221,npc_dota_hero_ember_spirit,h301,npc_dota_hero_windrunner,h302,npc_dota_hero_phantom_assassin,h303,npc_dota_hero_sniper,h304,npc_dota_hero_sven,h306,npc_dota_hero_mirana,h307,npc_dota_hero_nevermore,h308,npc_dota_hero_queenofpain,h309,npc_dota_hero_juggernaut,h310,npc_dota_hero_pudge,h311,npc_dota_hero_shredder,h312,npc_dota_hero_slardar,h313,npc_dota_hero_antimage,h314,npc_dota_hero_bristleback,h315,npc_dota_hero_lycan,h316,npc_dota_hero_lone_druid,h317,npc_dota_hero_storm_spirit,h318,npc_dota_hero_obsidian_destroyer,h319,npc_dota_hero_grimstroke,h401,npc_dota_hero_vengefulspirit,h402,npc_dota_hero_invoker,h403,npc_dota_hero_alchemist,h404,npc_dota_hero_spectre,h405,npc_dota_hero_morphling,h406,npc_dota_hero_techies,h407,npc_dota_hero_chaos_knight,h408,npc_dota_hero_faceless_void,h409,npc_dota_hero_legion_commander,h410,npc_dota_hero_monkey_king,h411,npc_dota_hero_razor,h412,npc_dota_hero_tinker,h413,npc_dota_hero_pangolier,h414,npc_dota_hero_dark_willow,h415,npc_dota_hero_terrorblade,h416,npc_dota_hero_enigma,t401,奶酪,t402,贪魔蛋,t403,值钱的贝壳,t301,南瓜,t302,雪球,t303,沙滩椅,t304,地渊孢林,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
-                    string[] n1 = l1.Split(',');
-                    //    d = "rarity_1,普通";
-                    int m1 = 0;
-                    for (m1 = 0; m1 < 151; m1++)
-                    {
-                        if (d.Contains(n1[m1]))
-                        {
-                            d = d.Replace(n1[m1], n1[m1 + 1]);
-                            m1++;
-                        }
-                    }
-
-                    string l2 = "common_toy,普通 玩具,rare_toy,稀有 玩具,mythical_toy,神话 玩具,legendary_toy,传说 玩具,npc_dota_hero_enchantress,魅惑魔女,npc_dota_hero_puck,精灵龙,npc_dota_hero_omniknignt,全能骑士,npc_dota_hero_crystal_maiden,水晶室女,npc_dota_hero_templar_assassin,圣堂刺客,npc_dota_hero_lina,秀逗魔导士,npc_dota_hero_windrunner,风行者,npc_dota_hero_phantom_assassin,幻影刺客,npc_dota_hero_sniper,狙击手,npc_dota_hero_vengefulspirit,复仇之魂,npc_dota_hero_sven,流浪剑客,npc_dota_hero_invoker,召唤师,npc_dota_hero_dazzle,暗影牧师,npc_dota_hero_riki,隐形刺客,npc_dota_hero_wisp,精灵守卫,npc_dota_hero_ogre_magi,食人魔法师,npc_dota_hero_lion,恶魔巫师,npc_dota_hero_phoenix,凤凰,npc_dota_hero_necrolyte,死灵法师,npc_dota_hero_lich,巫妖,npc_dota_hero_furion,先知,npc_dota_hero_mirana,月之女祭司,npc_dota_hero_nevermore,影魔,npc_dota_hero_queenofpain,痛苦女王,npc_dota_hero_alchemist,炼金,npc_dota_hero_spectre,幽鬼,npc_dota_hero_omniknight,全能骑士,npc_dota_hero_warlock,术士,npc_dota_hero_keeper_of_the_light,光之守卫,npc_dota_hero_rubick,大魔导师,npc_dota_hero_venomancer,剧毒,npc_dota_hero_kunkka,海军上将,npc_dota_hero_juggernaut,剑圣,npc_dota_hero_pudge,屠夫,npc_dota_hero_shredder,伐木机,npc_dota_hero_morphling,变体精灵,npc_dota_hero_techies,地精工程师,npc_dota_hero_tidehunter,潮汐猎人,npc_dota_hero_naga_siren,娜迦海妖,npc_dota_hero_chaos_knight,混沌骑士,npc_dota_hero_faceless_void,虚空假面,npc_dota_hero_slardar,鱼人守卫,npc_dota_hero_antimage,敌法师,npc_dota_hero_axe,斧王,npc_dota_hero_slark,鱼人夜行者,npc_dota_hero_legion_commander,军团指挥官,npc_dota_hero_jakiro,双头龙,npc_dota_hero_sand_king,沙王,npc_dota_hero_viper,冥界亚龙,npc_dota_hero_tusk,巨牙海民,npc_dota_hero_abaddon,死亡骑士,npc_dota_hero_bristleback,刚背兽,npc_dota_hero_lycan,狼人,npc_dota_hero_lone_druid,利爪德鲁伊,npc_dota_hero_monkey_king,齐天大圣,npc_dota_hero_razor,闪电幽魂,npc_dota_hero_tinker,地精修补匠,npc_dota_hero_dark_willow,邪影芳灵,npc_dota_hero_pangolier,石鳞剑士,npc_dota_hero_ancient_apparition,远古冰魄,npc_dota_hero_earth_spirit,大地之灵,npc_dota_hero_winter_wyvern,寒冬飞龙,npc_dota_hero_ember_spirit,灰烬之灵,npc_dota_hero_storm_spirit,风暴之灵,npc_dota_hero_obsidian_destroyer,殁境神噬者,npc_dota_hero_terrorblade,灵魂守卫,npc_dota_hero_enigma,谜团,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
-                    string[] n2 = l2.Split(',');
-                    //    d = "rarity_1,普通";
-                    int m2 = 0;
-                    for (m2 = 0; m2 < 160; m2++)
-                    {
-                        if (d.Contains(n2[m2]))
-                        {
-                            d = d.Replace(n2[m2], n2[m2 + 1]);
-                            m2++;
-                        }
-                    }*/
-                    d = d.Substring(d.IndexOf("skater_count"));
-                    //  d = d.Substring(0, d.IndexOf("is_black"));
-                    d = d.Replace("\\", "");
-                    string l2 = "fansheng,繁盛,biaoche,飚车,wuyu,无语,zuie,罪恶,xuebeng,雪崩,fennu,愤怒,huohuan,火环,lengmo,冷漠,chongzhuang,冲撞,welcome_AA,第1季 冰蘑菇,welcome_LICH,第2季 椰子树,welcome_SOIL,第3季 狗尾草,welcome_PRAC,训练场╭(′▽`)╭(′▽`)╯,welcome_EDIT,地图工坊╭(′▽`)╭(′▽`)╯,welcome_TEST1,铜牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST2,银牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST3,金牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST4,铂金老司机考试╭(′▽`)╭(′▽`)╯,welcome_BEGINNER,新手村╭(′▽`)╭(′▽`)╯,welcome_CUSTOM,试玩工坊地图╭(′▽`)╭(′▽`)╯,welcome_RANDOM,随机闯关╭(′▽`)╭(′▽`)╯,welcome_NEXUS1F,第4季 地瓜叶,welcome_FROST,第5季 火山木,cm_1,冰蘑菇 1级,cm_2,冰蘑菇 2级,cm_3,冰蘑菇 3级,cm_4,冰蘑菇 4级,cm_5,冰蘑菇 5级,lina_1,椰子树 1级,lina_2,椰子树 2级,lina_3,椰子树 3级,lina_4,椰子树 4级,lina_5,椰子树 5级,tinker_1,火山木 1级,tinker_2,火山木 2级,tinker_3,火山木 3级,tinker_4,火山木 4级,tinker_5,火山木 5级,qop_1,狗尾草 1级,qop_2,狗尾草 2级,qop_3,狗尾草 3级,qop_4,狗尾草 4级,qop_5,狗尾草 5级,ns_1,地瓜叶 1级,ns_2,地瓜叶 2级,ns_3,地瓜叶 3级,ns_4,地瓜叶 4级,ns_5,地瓜叶 5级,BRD,黑石深渊,DOTA,刀塔堡垒,CSGO,污手街,C6,魔导师平台,QOP,黑翼血环,NEXUS1F,魔枢第1层,NEXUS2F,魔枢第2层,NEXUS3F,魔枢第3层,NEXUS4F,魔枢第4层,NEXUS5F,魔枢第5层,NEXUS6F,魔枢第6层,NEXUS7F,魔枢第7层,NEXUS8F,魔枢第8层,NEXUS9F,魔枢第9层,NEXUS10F,魔枢第10层,NEXUS11F,魔枢第11层,NEXUS12F,魔枢第12层,NEXUS13F,魔枢第13层,NS,魔枢顶层,STORMEYE,风暴之眼,FROST,霜火岭,DRAGON,龙眠神殿,SKYREACH,通天峰,FARM,半山农场,NEWZUG,新祖尔格拉布,MTH,蔑潮港,TINKER,诺莫瑞根,NASSAR,纳沙尔海湾,WINTER,洛丹伦的冬天,AUTUMN,洛丹伦的秋天,SUMMER,洛丹伦的夏天,SPRING,洛丹伦的春天,PANDA,潘达利亚,TLJD,提拉加德海峡,MUSIC,维克雷斯庄园,ELEPHANT,魔法动物店,CHICK,消逝冰川,UCURVE,阿坤达神殿,CATMIAO,喵人藏身处,MACDON,冥宫,TRAIL,蛇行峡谷,GO1234,日暮广场,MARIO,奇妙玩具店,CUBES,冬幕节小栈,BEGINNER,新手村,BEGINNER_TWO,新手村2,GO,选择线路,GOONE,滑冰手的家,RACE,对战模式,PRAC,练习,AA,艾尔文河,AA2,艾尔文河2,POM,白虎寺,TEST1,青铜试炼,TEST2,白银试炼,TEST3,黄金试炼,WIN1,冰蘑菇通关,WIN2,椰子树通关,WIN3,狗尾草通关,WIN4,地瓜叶通关,WIN5,火山木通关,WINRAN,随机闯关通关,ALLEY,逆风小径,KRZ,卡拉赞,AZARA,艾萨拉,FAIRE,暗月马戏团,DUST,尘泥沼泽,X!!,希利苏斯,CAVERN,时光之穴,BEACH,破碎海滩,STORM,大漩涡,TUNDRA,北风苔原,MOROGH,丹莫罗,NAXX,纳克萨玛斯,NEEDLE,千针石林,ULDUM,奥丹姆,VASJIR,瓦斯琪尔,TEMPLE,黑暗神殿,DARK,黑海岸,ZUG,祖尔格拉布,TUSK,雪流平原,TUSK2,雪流平原2,SS,祖达克,SSOLD,旧祖达克,LICH,冬拥湖,WR,紫罗兰哨站,PUCK,晶歌森林,PUCK2,晶歌森林2,BB,止水河,BB2,止水河2,MORPH,河流之心,MORPH2,河流之心2,FUR,扭木广场,FUR2,扭木广场2,LIGHT,达拉然,DS,风暴峭壁,WINGS,旋云之巅,CM,冰冠冰川,TECH,加基森,TECH2,加基森2,RAZOR,剃刀高地,ENIGMA,冬泉谷,VS,流沙岗哨,VS2,流沙岗哨2,SF,影月谷,SF2,影月谷2,SK,深沙平原,BS,塔纳利斯,BS2,塔纳利斯2,KUNKKA,热砂港,GYRO,科赞,MEEPO,安戈洛环形山,MEEPO2,安戈洛环形山2,PHX,海加尔山,PHX2,海加尔山2,LINA,火焰之地,TA,翡翠梦境,TA2,翡翠梦境2,GIANT,巨兽岛,SOIL,恐惧废土,DEEP,深岩之洲,ASHEN,灰谷,SEABED,烁光海床,ZANGAR,赞加沼泽,ZANGAR2,赞加沼泽2,RKLZ,重返卡拉赞,fansheng,繁盛,biaoche,飚车,wuyu,无语,zuie,罪恶,xuebeng,雪崩,fennu,愤怒,huohuan,火环,lengmo,冷漠,chongzhuang,冲撞,welcome,欢迎来到萌萌的滑冰场╭(′▽`)╯╭(′▽`)╯,welcome_AA,第1季 冰蘑菇,welcome_LICH,第2季 椰子树,welcome_SOIL,第3季 狗尾草,welcome_PRAC,训练场╭(′▽`)╭(′▽`)╯,welcome_EDIT,地图工坊╭(′▽`)╭(′▽`)╯,welcome_TEST1,铜牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST2,银牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST3,金牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST4,铂金老司机考试╭(′▽`)╭(′▽`)╯,welcome_BEGINNER,新手村╭(′▽`)╭(′▽`)╯,welcome_CUSTOM,试玩工坊地图╭(′▽`)╭(′▽`)╯,welcome_RANDOM,随机闯关╭(′▽`)╭(′▽`)╯,welcome_NEXUS1F,第4季 地瓜叶,welcome_FROST,第5季 火山木,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1";
-                    string[] n2 = l2.Split(',');
-                    //    d = "rarity_1,普通";
-                    int ma = 0;
-                    for (ma = 0; ma < 260; ma++)
-                    {
-                        if (d.Contains(n2[ma]))
-                        {
-                            d = d.Replace(n2[ma], n2[ma + 1]);
-                            ma++;
-
-
-                        }
-                    }
-
-                    d = d.Replace("{", "\r\n");
-
-                    //  d = d.Replace("preice", "\r\n这项不知道");
-                    //    d = d.Replace("compenice", "\r\n这项也不知道");
-                    d = d.Replace("}", "\r\n");
-                    d = d.Replace("hero_sea", "信使");
-                    d = d.Replace("ability", "");
-                    d = d.Replace("shell", "\r\n贝壳：");
-                    d = d.Replace("crab_season", "\r\n日常地图：");
-                    d = d.Replace("effect", "");
-
-                    d = d.Replace("skater_count", "\r\n信使数量");
-                    d = d.Replace("onduty_hero", "\r\n当前信使");
-
-                    d = d.Replace("task", "\r\n任务");
-                    d = d.Replace("test", "\r\n驾照测试（秒）");
-                    d = d.Replace("cm", "\r\n冰女通关任务（秒）");
-                    d = d.Replace("lina", "\r\n火女通关任务（秒）");
-                    d = d.Replace("qop", "\r\n女王通关任务（秒）");
-                    d = d.Replace("tinker", "\r\n地精修补匠通关任务（秒）");
-                    d = d.Replace("random", "\r\n随机关卡通关任务（秒）");
-                    d = d.Replace("season", "\r\n赛季剩余时间（秒）");
-                    d = d.Replace("daily", "\r\n日常剩余时间（秒）");
-                    d = d.Replace("driver", "\r\n驾照等级");
-                    //     d = d.Replace("rush", "\r\n这项还是不知道");
-                    d = d.Replace("ns", "\r\n夜魔通关任务（秒）");
-
-                    d = d.Replace("\"", "");
-                    d = d.Replace(":", "");
-                    d = d.Replace("]", "");
-                    d = d.Replace("[", "");
-                    d = d.Replace(",", "");
-                    d = d.Replace("crab_level", "日常关卡：");
-                    d = d.Replace("rank", "\r\n排名");
-                    d = d.Replace("rush_content", "\r\n英雄难度主题：\r\n");
-                    d = d.Replace("rush", "\r\n英雄难度主题刷新时间");
-                    d = d.Replace("extend", "\r\n英雄挑战任务刷新时间");
-                    d = d.Replace("badge", "\r\n英雄难度徽章");
-                    d = d.Replace("ticket", "\r\n英雄难度门票");
-                    d = d.Replace("camera", "\r\n视角状态");
-                    d = d.Replace("distance", "\r\n视角高度");
-                    d = d.Replace("go_teachfalse", "");
-                    d = d.Replace("go_teachtrue", "");
-                    d = d.Replace("preice0compenice0", "");
-                    d = d.Replace("is_black0wed_icenullcount0", "");
-                    d = d.Replace("beginnerfalsepre_cardnull", "");
-                    d = d.Replace("ice", "\r\n冰块");
-                    //  await MessageManager.SendGroupMessageAsync(receiver.Id, n[50]);
-                    //  await MessageManager.SendGroupMessageAsync(receiver.Id, n[51]);
-                    //  await MessageManager.SendGroupMessageAsync(receiver.Id, n[52]);
-                    //   await MessageManager.SendGroupMessageAsync(receiver.Id, n[34]);
-
-                    // d = Encoding.UTF8.GetString(Encoding.Default.GetBytes(d));
-
-                    /*    string c1 = "http://gemtd.ppbizon.com/gemtd/201807/mmr/get/@" + b;
-
-                        WebResponse responsea1;
-
-
-
-                        HttpWebRequest requesta1 = (HttpWebRequest)WebRequest.CreateDefault(new Uri(c1));
-                        try
-                        {
-                            responsea1 = requesta1.GetResponse();
-                        }
-                        catch (WebException ex)
-                        {
-                            responsea1 = ex.Response;
-                        }
-                        // WebResponse response = request.GetResponse();
-                        StreamReader readera1 = new StreamReader(responsea1.GetResponseStream());
-                        string d1 = readera1.ReadToEnd();//d为转换网页的整个文档   
-
-                        d1 = gb2312.GetString(Encoding.Default.GetBytes(d1));
-                        d1 = d1.Substring(d1.IndexOf("match") + 8);
-                        d1 = d1.Replace("mmr", "\r\n隐藏分");
-                        d1 = d1.Replace("rankall", "总排位");
-                        d1 = d1.Replace("rankcoop", "组队排位");
-                        d1 = d1.Replace("rankrace", "比赛排位");
-                        d1 = d1.Replace("all_level", "总体等级");
-                        d1 = d1.Replace("coop_level", "组队等级");
-                        d1 = d1.Replace("race_level", "比赛等级");
-                        d1 = d1.Replace("score", "分数");
-                        d1 = d1.Replace("}]}", "");
-                        d1 = d1.Replace("\"", "");*/
-
-                    d = "查询的ID昵称为:" + o + "\r\n" + d;
+                // d = "查询的ID昵称为:" + o + "\r\n" + d;
                 try
                 {
-                await MessageManager.SendGroupMessageAsync(receiver.Id, d);
+                    await MessageManager.SendGroupMessageAsync(receiver.Id, d);
 
 
                 }
                 catch (Exception ex)
                 {
-                    await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败"+DateTime.Now);
-                    Console.WriteLine("发送失败"+DateTime.Now);
+                    await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败" + DateTime.Now);
+                    Console.WriteLine("发送失败" + DateTime.Now);
                 };
 
 
                 d = "";
 
 
-                }
-
             }
+
+        }
         if (message.Contains("宝石现在什么打折") || message.Contains("宝石打折") || message.Contains("你懂得") || message.Contains("你懂的"))
         {
             Console.WriteLine($"收到你懂得了");
@@ -780,13 +827,13 @@ class program
                 {
                     try
                     {
-                        await MessageManager.SendGroupMessageAsync(receiver.Id, "查询失败"+DateTime.Now);
+                        await MessageManager.SendGroupMessageAsync(receiver.Id, "查询失败" + DateTime.Now);
                     }
                     catch (Exception ex)
 
                     {
-                        await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败"+DateTime.Now);
-                        Console.WriteLine("发送失败"+DateTime.Now);
+                        await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败" + DateTime.Now);
+                        Console.WriteLine("发送失败" + DateTime.Now);
                     };
 
                 }
@@ -794,12 +841,12 @@ class program
                 {
                     try
                     {
-                      await MessageManager.SendGroupMessageAsync(receiver.Id, d);
-                     }
+                        await MessageManager.SendGroupMessageAsync(receiver.Id, d);
+                    }
                     catch (Exception ex)
                     {
-                        await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败"+DateTime.Now+ receiver.Id);
-                        Console.WriteLine("发送失败"+DateTime.Now);
+                        await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败" + DateTime.Now + receiver.Id);
+                        Console.WriteLine("发送失败" + DateTime.Now);
                     };
                     // await MessageManager.SendGroupMessageAsync(receiver.Id, shijianzhuanhuan);
                     d = "";
@@ -810,18 +857,18 @@ class program
                 try
                 {
 
-               
-                    await MessageManager.SendGroupMessageAsync(receiver.Id, "查询失败"+DateTime.Now);
-                 }
+
+                    await MessageManager.SendGroupMessageAsync(receiver.Id, "查询失败" + DateTime.Now);
+                }
                 catch (Exception ex)
                 {
-                    await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败"+DateTime.Now);
-                    Console.WriteLine("发送失败"+DateTime.Now);
+                    await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败" + DateTime.Now);
+                    Console.WriteLine("发送失败" + DateTime.Now);
                 };
 
             }
         }
-        if (message.Contains("滑冰现在什么打折") )
+        if (message.Contains("滑冰现在什么打折"))
         {
             /*  string x = e.Message.Text;
               string str = System.Text.RegularExpressions.Regex.Replace(x, @"[^0-9]+", "");
@@ -942,72 +989,269 @@ class program
             try
             {
 
-            await MessageManager.SendGroupMessageAsync(receiver.Id, d);
+                await MessageManager.SendGroupMessageAsync(receiver.Id, d);
 
             }
             catch (Exception ex)
             {
-                await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败"+DateTime.Now);
-                Console.WriteLine("发送失败"+DateTime.Now);
+                await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败" + DateTime.Now);
+                Console.WriteLine("发送失败" + DateTime.Now);
             };
 
 
             d = "";
         }
-        Random ran = new Random();
-        if ( 10 > ran.Next(1,100))
+
+        if (message.Contains("创建决斗") && juedou == "0")
         {
-            if (receiver.MessageChain.OfType<PlainMessage>().Any())
+            await MessageManager.SendGroupMessageAsync(receiver.Id, "创建决斗成功，请加入决斗。请输入 加入决斗。");
+            juedou = "1";
+            //    await MessageManager.SendGroupMessageAsync(receiver.Id,juedou);
+        }
+        else if (message.Contains("创建决斗") && juedou == "1")
+        {
+            await MessageManager.SendGroupMessageAsync(receiver.Id, "创建决斗失败，决斗已经开始，或者准备中。");
+        }
+
+
+        if (message.Contains("加入决斗") && juedou == "1" && renshu < 6)
+        {
+            int panduan1 = 0;
+            string x;
+            for (int i = 0; i < 6; i++)
             {
-                string id = receiver.Sender.Id;
-                message = receiver.MessageChain.OfType<PlainMessage>().First().Text;
-                string str1 = "http://api.qingyunke.com/api.php?key=free&appid=0&msg=" + message;
-                string url = str1;
-                //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
-
-                WebResponse? response;
-
-
-
-                HttpWebRequest request = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
-                try
+                if (a[i] == senderName)
                 {
-                    response = request.GetResponse();
+                    panduan1 = 1;
                 }
-                catch (WebException ex)
-                {
-                    response = ex.Response;
+            }
+            if (panduan1 == 0)
+            {
 
-                }
-                // WebResponse response = request.GetResponse();
-                string y;
-                if (response == null)
-                {
-                    y = "0";
-                }
-                else
-                {
-                    StreamReader reader = new StreamReader(response.GetResponseStream());
-                    y = reader.ReadToEnd();//a为转换网页的整个文档
-                    y = y.Replace("{\"result\":0,\"content\":\"", "");
-                    y = y.Replace("\"}", "");
-                    y = y.Replace("{br}", "\r\n");//
-                }
-                try
-                {
-                    await receiver.SendMessageAsync("".Append(y));
 
-                }
-                catch (Exception ex)
-                {
-                    await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败"+DateTime.Now);
-                    Console.WriteLine("发送失败"+DateTime.Now);
-                };
-                
+                string jiancheqq = senderName;
 
+                //  await MessageManager.SendGroupMessageAsync(receiver.Id,"1");
+                //   string x1 = e.FromQQ.GetFriendsRemark(e.Message.MsdId);
+                //   await MessageManager.SendGroupMessageAsync(receiver.Id,x1);
+                x = senderName;
+                //  x = e.Message.Text;
+                Random ran4 = new Random();
+                int RandKey = ran4.Next(100, 999);
+                //   await MessageManager.SendGroupMessageAsync(receiver.Id,"2");
+                renshu = renshu + 1;
+                a[renshu] = x;
+                b[renshu] = RandKey;
+                //   await MessageManager.SendGroupMessageAsync(receiver.Id,"3");
+                string c = x + "加入成功，" + "你是" + renshu + "号选手，生命值为" + RandKey + "。";
+                await MessageManager.SendGroupMessageAsync(receiver.Id, c);
+            }
+            else
+            {
+                await MessageManager.SendGroupMessageAsync(receiver.Id, "你已成功加入，不能重复加入决斗。");
+            }
+
+
+            // e.FromGroup.SendMessage(e.RobotQQ,"4");
+        }
+        else if (message.Contains("加入决斗") && juedou == "2" || message.Contains("加入决斗") && juedou == "0")
+        {
+            await MessageManager.SendGroupMessageAsync(receiver.Id, "加入失败,决斗未被创建，或者决斗已开始,或者已经加入决斗。");
+            //  await MessageManager.SendGroupMessageAsync(receiver.Id,"1");
+        }
+        if (message.Contains("开始决斗") && juedou == "0")
+        {
+            await MessageManager.SendGroupMessageAsync(receiver.Id, "开始失败，尚未创建游戏。");
+        }
+
+        if (renshu > 1 && message.Contains("开始决斗") && juedou == "1" || renshu == 5 && juedou == "1")
+        {
+            await MessageManager.SendGroupMessageAsync(receiver.Id, "决斗开始");
+            juedou = "2";
+            int r = 1;
+            string x1 = "";
+            while (renshu > 1)
+            {
+
+
+                // int r = ran.Next(1, 3);
+                if (r == 1)
+                {
+                    Random ran5 = new Random(GetRandomSeed());
+
+                    Random ran2 = new Random(GetRandomSeed());
+                    int RandKey = ran5.Next(1, renshu + 1);
+                    int RandKey2 = ran2.Next(1, renshu + 1);
+                    int RandKey3 = ran5.Next(1, 300);
+                    int baoji = ran5.Next(1, 11);
+                    int biansheng = ran5.Next(2, 5);
+                    if (RandKey != RandKey2)
+                    {
+                        int RandKey4 = ran5.Next(1, 100);
+                        if (RandKey4 < 10)
+                        {
+                            x1 = a[RandKey] + "使用" + zhaoshi() + "打出了" + baoji + "倍恩赐解脱，对" + a[RandKey2] + "造成了" + RandKey3 * baoji + "点伤害。";
+                            b[RandKey2] = b[RandKey2] - RandKey3 * baoji;
+                        }
+
+
+                        else if (RandKey4 > 95)
+                        {
+                            x1 = a[RandKey] + "使用了变身,血量翻了" + biansheng + "倍！";
+                            b[RandKey] = b[RandKey] * biansheng;
+
+                        }
+                        else
+                        {
+                            x1 = a[RandKey] + "使用" + zhaoshi() + "对" + a[RandKey2] + "造成了" + RandKey3 + "点伤害。";
+                            b[RandKey2] = b[RandKey2] - RandKey3;
+                        }
+                    }
+                    else if (RandKey == RandKey2)
+                    {
+                        x1 = a[RandKey] + "使用了" + zhaoshi() + "，但招式并不熟练，对自己造成了" + RandKey3 + "点伤害。";
+                        b[RandKey2] = b[RandKey2] - RandKey3;
+                    }
+
+
+                    if (b[RandKey2] < 1 && RandKey2 != renshu && RandKey == RandKey2)
+                    {
+                        x1 = x1 + a[RandKey] + "自杀了。";
+
+                        for (int r2 = RandKey2; r2 < renshu; r2++)
+                        {
+                            a[r2] = a[r2 + 1];
+                            b[r2] = b[r2 + 1];
+                        }
+                        renshu = renshu - 1;
+                        huoshengzhe = RandKey;
+                    }
+                    else if (b[RandKey2] < 1 && RandKey2 == renshu && RandKey == RandKey2)
+                    {
+                        x1 = x1 + a[RandKey] + "自杀了。";
+
+
+                        renshu = renshu - 1;
+                        huoshengzhe = RandKey;
+                    }
+                    else if (b[RandKey2] < 1 && RandKey2 == renshu && RandKey != RandKey2)
+                    {
+                        x1 = x1 + a[RandKey] + "击败了" + a[RandKey2] + "。";
+
+
+
+                        renshu = renshu - 1;
+                        huoshengzhe = RandKey;
+                    }
+                    else if (b[RandKey2] < 1 && RandKey2 != renshu && RandKey != RandKey2)
+                    {
+                        x1 = x1 + a[RandKey] + "击败了" + a[RandKey2] + "。";
+
+                        for (int r2 = RandKey2; r2 < renshu; r2++)
+                        {
+                            a[r2] = a[r2 + 1];
+                            b[r2] = b[r2 + 1];
+                        }
+                        renshu = renshu - 1;
+                        huoshengzhe = RandKey;
+                    }
+                    x1 = x1 + a[RandKey2] + "现在的血量为" + b[RandKey2] + "。";
+                    await MessageManager.SendGroupMessageAsync(receiver.Id, x1);
+
+                    Thread.Sleep(5000);
+                }
 
             }
+
+            if (jianchesiwang() != 0)
+            {
+                await MessageManager.SendGroupMessageAsync(receiver.Id, a[jianchesiwang()] + "获得了胜利！");
+            }
+            else
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    if (b[i] > 0)
+                    {
+                        await MessageManager.SendGroupMessageAsync(receiver.Id, a[i] + "获得了胜利！");
+                        break;
+                    }
+                }
+                //   await MessageManager.SendGroupMessageAsync(receiver.Id,a[jianchesiwang()] + "获得了胜利！");
+            }
+
+
+            juedou = "0";
+            for (int i = 0; i < 10; i++)
+            {
+                a[i] = "";
+                a[i] = "";
+            }
+            renshu = 0;
+            huoshengzhe = 0;
+            /*  for (int i=0;i<10;i++ ) 
+              {
+              int RandKey = ran.Next(1, renshu);
+              int RandKey2 = ran.Next(1, renshu);
+              int RandKey3= ran.Next(1, 100);
+              string x1 = a[RandKey] + "使用" + zhaoshi() + "对" + a[RandKey2] + "造成了" + RandKey3 + "点伤害。";
+              e.FromGroup.SendMessage(e.RobotQQ,x1);
+              }*/
         }
+        Random ran = new Random();
+        /* if ( 10 > ran.Next(1,100))
+         {
+             if (receiver.MessageChain.OfType<PlainMessage>().Any())
+             {
+                 string id = receiver.Sender.Id;
+                 message = receiver.MessageChain.OfType<PlainMessage>().First().Text;
+                 string str1 = "http://api.qingyunke.com/api.php?key=free&appid=0&msg=" + message;
+                 string url = str1;
+                 //    await MessageManager.SendGroupMessageAsync(receiver.Id, url);
+
+                 WebResponse? response;
+
+
+
+                 HttpWebRequest request = (HttpWebRequest)WebRequest.CreateDefault(new Uri(url));
+                 try
+                 {
+                     response = request.GetResponse();
+                 }
+                 catch (WebException ex)
+                 {
+                     response = ex.Response;
+
+                 }
+                 // WebResponse response = request.GetResponse();
+                 string y;
+                 if (response == null)
+                 {
+                     y = "0";
+                 }
+                 else
+                 {
+                     StreamReader reader = new StreamReader(response.GetResponseStream());
+                     y = reader.ReadToEnd();//a为转换网页的整个文档
+                     y = y.Replace("{\"result\":0,\"content\":\"", "");
+                     y = y.Replace("\"}", "");
+                     y = y.Replace("{br}", "\r\n");//
+                 }
+                 try
+                 {
+                     await receiver.SendMessageAsync("".Append(y));
+
+                 }
+                 catch (Exception ex)
+                 {
+                     await MessageManager.SendGroupMessageAsync("145368121", "发送消息失败"+DateTime.Now);
+                     Console.WriteLine("发送失败"+DateTime.Now);
+                 };
+
+
+
+             }
+         }*/
 
     });
         //  await MessageManager.SendTempMessageAsync("目标id", "临时会话群id", "HelloWorld!");
@@ -1041,34 +1285,37 @@ class program
                     }
                     // WebResponse response = request.GetResponse();
                     string y;
-                if (response == null)
-                {
-                    y = "0";
-                }
-                else
-                {
-                    StreamReader reader = new StreamReader(response.GetResponseStream());
-                    y = reader.ReadToEnd();//a为转换网页的整个文档
-                    y = y.Replace("{\"result\":0,\"content\":\"", "");
+                    if (response == null)
+                    {
+                        y = "0";
+                    }
+                    else
+                    {
+                        StreamReader reader = new StreamReader(response.GetResponseStream());
+                        y = reader.ReadToEnd();//a为转换网页的整个文档
+                        y = y.Replace("{\"result\":0,\"content\":\"", "");
                         y = y.Replace("\"}", "");
-                        y=y.Replace("{br}","\r\n");//
+                        y = y.Replace("{br}", "\r\n");//
                     }
-                    try
+                    if (message.Contains("帮助"))
                     {
-                         await e.Receiver.SendMessageAsync("".Append(new AtMessage(id)).Append(y));
+                        try
+                        {
+                            await e.Receiver.SendMessageAsync("".Append(new AtMessage(id)).Append("@窝干啥呀\r\n如果你想查宝石数据，请@窝+查询宝石数据+好友id\r\n如果你想查滑冰数据，请@窝+查询滑冰数据+好友id\r\n如果你想查询宝石商店，请@窝+宝石现在什么打折\r\n如果你想查看滑冰商店，请@窝+滑冰现在什么打折"));
 
+                        }
+                        catch (Exception)
+                        {
+
+                        };
                     }
-                   catch(Exception)
-                    {
-                       
-                    };
                 }
-                
+
             });
         var signal = new ManualResetEvent(false);
         signal.WaitOne();
 
     }
 
-   
+
 }
