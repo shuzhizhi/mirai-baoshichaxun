@@ -1301,7 +1301,7 @@ class program
                     {
                         try
                         {
-                            await e.Receiver.SendMessageAsync("".Append(new AtMessage(id)).Append("@窝干啥呀\r\n如果你想查宝石数据，请@窝+查询宝石数据+好友id\r\n如果你想查滑冰数据，请@窝+查询滑冰数据+好友id\r\n如果你想查询宝石商店，请@窝+宝石现在什么打折\r\n如果你想查看滑冰商店，请@窝+滑冰现在什么打折"));
+                            await e.Receiver.SendMessageAsync("".Append(new AtMessage(id)).Append("@窝干啥呀\r\n如果你想查宝石数据，请@窝+查询宝石数据+好友id\r\n如果你想查滑冰数据，请@窝+查询滑冰数据+好友id\r\n如果你想查询宝石商店，请@窝+宝石现在什么打折\r\n如果你想查看滑冰商店，请@窝+滑冰现在什么打折\r\n如果你想玩决斗，命令为创建决斗，加入决斗，开始决斗"));
 
                         }
                         catch (Exception)
