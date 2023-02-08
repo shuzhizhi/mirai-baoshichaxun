@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Mirai.Net" Version="2.3.8" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
   </ItemGroup>
 
 </Project>
