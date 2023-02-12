@@ -80,6 +80,16 @@ class program
                 await MessageManager.SendGroupMessageAsync(receiver.Id, message);
 
             }
+            if (message.Contains("查询滑冰数据"))
+            {
+                string x = message;
+                x = x.Replace(bot.QQ, "");
+
+                string str = System.Text.RegularExpressions.Regex.Replace(x, @"[^0-9]+", "");
+               
+                await MessageManager.SendGroupMessageAsync(receiver.Id, huoquhuabingshuju(str));
+
+            }
             if (message.Contains("查询宝石数据") )
             {
                 string x = message;
@@ -409,7 +419,7 @@ class program
 
                 }
             }
-            if (message.Contains("查询滑冰数据"))
+            if (message.Contains("查询滑冰数据备用"))
             {
                 string x = message;
                 x = x.Replace(bot.QQ, "");
@@ -1623,4 +1633,75 @@ class program
         return shuju2;
 
     }
+
+    static string huoquhuabingshuju(string id)
+    {
+        string shuju2 = "0";
+
+        try
+        {
+
+            string str1 = "http://gemtd.ppbizon.com/sm/201901/heros/get/@";
+            string str2 = idzhuanhuan(id).ToString();
+            string url = str1 + str2;
+            string shuju = huoquwangye(url);
+            // Console.WriteLine("收到消息是" + shuju);
+            JObject chuli = (JObject)JsonConvert.DeserializeObject(shuju);
+            //   Console.WriteLine("收到消息是chuli" + chuli);
+            string jiazhao = chuli["data"][str2]["driver"].ToString();
+            string bingkuai = chuli["data"][str2]["ice"].ToString();
+            string skater_count = chuli["data"][str2]["skater_count"].ToString();
+            //    Console.WriteLine("收到消息是tangguo" + tangguo);
+            string test = chuli["data"][str2]["task"]["test"].ToString();
+            test = shijian(int.Parse(test));
+            string cm = chuli["data"][str2]["task"]["cm"].ToString();
+            cm = shijian(int.Parse(cm));
+            string lina = chuli["data"][str2]["task"]["lina"].ToString();
+            lina = shijian(int.Parse(lina));
+            string qop = chuli["data"][str2]["task"]["qop"].ToString();
+            qop = shijian(int.Parse(qop));
+            string ns = chuli["data"][str2]["task"]["ns"].ToString();
+            ns = shijian(int.Parse(ns));
+            string tinker = chuli["data"][str2]["task"]["tinker"].ToString();
+            tinker = shijian(int.Parse(tinker));
+            string random = chuli["data"][str2]["task"]["random"].ToString();
+            random = shijian(int.Parse(random));
+            string season = chuli["data"][str2]["task"]["season"].ToString();
+            season = shijian(int.Parse(season));
+            string daily = chuli["data"][str2]["task"]["daily"].ToString();
+            daily = shijian(int.Parse(daily));
+            string rush = chuli["data"][str2]["task"]["rush"].ToString();
+            rush = shijian(int.Parse(rush));
+            string extend = chuli["data"][str2]["task"]["extend"].ToString();
+            extend = shijian(int.Parse(extend));
+            string crab_level = chuli["data"][str2]["crab_level"].ToString();
+            string crab_season = chuli["data"][str2]["crab_season"].ToString();
+            string rank = chuli["data"][str2]["rank"].ToString();
+            string count = chuli["data"][str2]["count"].ToString();
+
+            //Console.WriteLine("收到消息是" + shuju2);
+            //shuju2 = tihuan(renwu);
+            //Console.WriteLine("tihuan(renwu)" + shuju2);
+            //shuju2 = renwushixian;
+            //Console.WriteLine("renwushixian" + shuju2);
+            //shuju2 = zuihaochengji;
+            //Console.WriteLine("zuihaochengji" + shuju2);
+            //shuju2 = paiming;
+            //Console.WriteLine("paiming" + shuju2);
+            //shuju2 = zuihaochengji;
+            //Console.WriteLine("chengji" + shuju2);
+            //shuju2 = huoqunicheng(id);
+            //Console.WriteLine("nicheng" + shuju2);
+            shuju2 = "查询的昵称是：" + huoqunicheng(id) + "\r\n驾照等级：" + jiazhao + "冰块：" + bingkuai + "滑冰手数量：" + skater_count + "\r\n驾照任务cd：" + test + "\r\n冰女通关cd：" + cm + "\r\n火女通关cd：" + lina + "\r\n女王通关cd：" + qop + "\r\n夜魔通关cd：" + ns + "\r\n修补匠通关cd：" + tinker + "\r\n随机通关cd：" + random + "\r\n赛季cd：" + season + "\r\n日常通关cd：" + daily + "\r\n英雄难度cd：" + rush + "\r\n英雄任务cd：" + extend + "\r\n日常地图：" + crab_season + ":" + crab_level + "\r\n排名：" + rank;
+            Console.WriteLine("zuihou" + shuju2);
+        }
+        catch (WebException webEx)
+        {
+            Console.WriteLine(webEx.Message.ToString());
+        }
+
+        return shuju2;
+
+    }
+
 }
