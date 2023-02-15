@@ -12,6 +12,7 @@ using Mirai.Net.Utils.Scaffolds;
 using Mirai.Net.Data.Events.Concretes.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Threading;
 
 class program
 {
@@ -22,6 +23,9 @@ class program
     static int huoshengzhe = 1;
     static string x = "0";
     static string steamid = "0";
+    static string huabingdazhe = "0";
+    static string baoshidazhe = "0";
+    static string huabingrichang = "0";
     static async Task Main(string[] args)
     {
         Random ran = new Random();
@@ -46,8 +50,10 @@ class program
             System.Threading.Thread.Sleep(180000);
             await bot.LaunchAsync();
         }
-
-
+       
+        Thread t1 = new Thread(new ThreadStart(TestMethod));
+        t1.IsBackground = true;
+        t1.Start();
 
         bot.MessageReceived
     .OfType<GroupMessageReceiver>()
@@ -1582,6 +1588,18 @@ class program
         d = d.Replace("{", "");
         d = d.Replace("}", "");
         d = d.Replace(":", "");
+        string l = "a407,技能窃取,a208,照明弹,a405,无敌,a406,海妖之歌,a101,冲刺,a101_help,3秒内提高移动速度200,a102,刹车,a101_help,瞬间停住,a103,加速光环,a101_help,1000范围内友军移动速度增加50,a104,减速光环,a101_help,1000范围内敌军移动速度降低100,a201,冰冻,a101_help,使500范围内敌人3秒无法移动,a202,击退,a101_help,击退自己附近的敌人,a203,时光倒流,a101_help,使自己回到四秒前位置,a204,信仰之跃,a101_help,向前跳跃,a205,折光,a206,链接,a207,粘滞,a101_help,10秒内抵挡一次伤害,a301,召唤,a101_help,立刻召唤任意一名队友到你身边,a302,传送,a101_help,立刻传送到一个队友身边,a303,投掷,a101_help,把一个队友扔到另一个队友身上,a305,标记,a304,消失,a401,沉默,a101_help,使2000范围内敌人沉默5秒,a402,复活,a101_help,随机复活一名死去的队友,a403,融化,a404,重生,beginner_hero,入门级 滑冰手,ameteur_hero,业余级 滑冰手,pro_hero,职业级 滑冰手,master_hero,大师级 滑冰手,beginner_ability,入门级 技能,ameteur_ability,业余级 技能,pro_ability,职业级 技能,master_ability,大师级 技能,beginner_effect,入门级 特效,ameteur_effect,业余级 特效,pro_effect,职业级 特效,master_effect,大师级 特效,OhIgota,噢耶，我获得了,h101,船长的鹦鹉,h102,宝石教父Zard-,h103,神兔,h104,粉嫩蝾螈,h105,酒桶浣熊,h106,毛毛鱼,h107,海盗船,h108,达士奇,h109,萌蛛,h110,翠花|红色,h111,白羽鸡,h112,绿毛龟,h113,空心恶魔人,h114,歪脖鸵鸟,h115,跳脚企鹅,h116,胡小桃,h117,小红毛,h118,极速蜗牛,h119,松鼠卫兵,h120,丹顶鹤,h401,NAVI黄鼬,h402,MVP滑板火烈鸟,h403,IG小火龙,h404,LGD的金萌萌,h405,VG飞狐侠|红色,h406,VP北极熊,h407,EG的麋鹿,h201,末日宝宝,h202,赏金宝宝,h203,屠夫宝宝,h204,血魔宝宝,h205,小白虎,h206,海民宝宝,h207,黑鸟宝宝,h208,虚空宝宝,h209,修补匠宝宝,h210,小星月,h301,魔典小龙,h302,斑竹队长,h303,滑板鲨鱼,h304,炸毛小鸡,h305,摇摆蘑菇,h306,坚果松鼠,h307,翠玉小龙,h308,巨鸟多多,h309,机械战驴,h310,基拉魔法师,h211,两栖鱼童,h408,石头人|天辉,h409,石头人|夜魇,h121,双头恶犬,h311,爆眼章鱼,h212,剧毒宝宝,h410,火星车|绿色,h411,火星车|红色,h122,飞僵小宝,h412,对映体|天使,h413,对映体|恶魔,h123,雷克,h312,金龟子,h124,快递青蛙跳跳,h213,不屈战犬,h313,毛茸茸的肥羊羊,h125,赤兔,h126,迅捷魔童,h314,魔暴龙,h127,狂暴野猪,h214,獭龙奥斯基,h215,死神,h315,基王海盗,h216,冰龙宝宝,h316,摇摆的驴革米,h217,忠诚高山牦牛,h317,伐士奇,h415,啾啾,h416,死亡仙知,h414,VG飞狐侠|青色,h318,肉山宝宝,h417,金银狐灵|黑色,h418,金银狐灵|白色,h319,小灰熊,h219,骏马,h320,白色龙蝶,h321,红色龙蝶,h419,风神飞镰,h420,抬轿兄弟,h220,忠诚之犬瓦尔迪,h221,八戒,h222,羊羊羊,h223,草泥马拉玛,h218,桃树精,h128,碧磷|入门,h224,碧磷|业余,h322,碧磷|职业,h421,碧磷|大师,h323,招财猫,h444,百变泽驴斯,h499,死亡仙知|纯金,h129,蠕行水母,h225,胆小南瓜人,h422,长耳兔妖,h226,蟹小蜗|海螺,h227,蟹小蜗|草鞋,h228,蟹小蜗|穷鬼盾,h324,蟹小蜗|死灵书,h325,蟹小蜗|飞鞋,h326,蟹小蜗|莲花球,h423,蟹小蜗|玲珑心,h424,蟹小蜗|冰眼,h425,蟹小蜗|冠军盾,h134,矿车鼠|矿车,h234,矿车鼠|蜡烛,h335,矿车鼠|挖掘机,h428,矿车鼠|纯金e101,圣洁精华,e102,玛瑙光泽,e103,芳晓之庆,e104,水晶裂痕,e105,腐化触须,e106,毒虫肆虐,e107,夜魇暗潮腐化,e108,夜魇暗潮荒芜,e201,暗淡幻象,e202,冥魂大帝,e203,翡翠外质,e204,祸乱之源,e205,毒蕈之径,e206,2012冠军之辉,e207,2013冠军之辉,e208,2014冠军之辉,e301,骄阳之炎,e302,嬉戏蝴蝶,e303,冰女特效,e304,幸福之赐,e305,绽放莲花,e306,迎霜冰雪,e307,燃烧末日,e308,鱼泡泡,e401,燃焰之触,e402,霜寒之触,e403,迈达斯之触,e404,离子之汽,e109,大地灵气,e110,蓝色风暴,e309,紫色激情,e310,白雪飘零,e311,一股邪火,e209,霓虹蝴蝶,e210,旋转火花,e312,金币飞舞,e313,光辉岁月,e314,紫色星云,e315,噩梦缠绕,e111,一起哈啤,e112,宝石光泽,e211,雾气环绕,e212,迷幻缠绕,e405,光芒万丈,e316,星星,e113,污污污污,e499,金龙鱼,e114,雾里看花,e317,心心相印,e318,2017冠军之辉,myskater,我的滑冰手车库,more_heros,通过老司机考试（铜牌、银牌、金牌、铂金）以获得更多车库位置,not_available_now,面板崩溃，暂不可用,h327,迅捷远足毛驴,h229,竭智法师,h130,驴法师,h328,天猫地狗,h230,蓝心白隼,h131,丰臀公主,h426,绽放树精,h329,万圣树群,h231,莲花人,h132,焚牙树精,h330,咬人箱|大嘴,h331,咬人箱|洛克,h232,咬人箱|甲虫,h133,咬人箱|机械,h427,小恶魔|飞毯,h333,小恶魔|海龟,h334,小恶魔|螃蟹,h233,小恶魔|鹦鹉,h332,布狗,e319,灿若繁星,e320,大漩涡,e407,飞沙走石,e406,星光蓝宝石,e409,血之环,e408,暗月来袭e213,小家碧玉,e214,欲火焚身,e321,通灵术,e410,雪精灵,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
+        string[] n = l.Split(',');
+        //    d = "rarity_1,普通";
+        int m = 0;
+        for (m = 0; m < 450; m++)
+        {
+            if (d.Contains(n[m]))
+            {
+                d = d.Replace(n[m], n[m + 1]);
+                m++;
+            }
+        }
         string l2 = "fansheng,繁盛,biaoche,飚车,wuyu,无语,zuie,罪恶,xuebeng,雪崩,fennu,愤怒,huohuan,火环,lengmo,冷漠,chongzhuang,冲撞,welcome_AA,第1季 冰蘑菇,welcome_LICH,第2季 椰子树,welcome_SOIL,第3季 狗尾草,welcome_PRAC,训练场╭(′▽`)╭(′▽`)╯,welcome_EDIT,地图工坊╭(′▽`)╭(′▽`)╯,welcome_TEST1,铜牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST2,银牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST3,金牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST4,铂金老司机考试╭(′▽`)╭(′▽`)╯,welcome_BEGINNER,新手村╭(′▽`)╭(′▽`)╯,welcome_CUSTOM,试玩工坊地图╭(′▽`)╭(′▽`)╯,welcome_RANDOM,随机闯关╭(′▽`)╭(′▽`)╯,welcome_NEXUS1F,第4季 地瓜叶,welcome_FROST,第5季 火山木,cm_1,冰蘑菇 1级,cm_2,冰蘑菇 2级,cm_3,冰蘑菇 3级,cm_4,冰蘑菇 4级,cm_5,冰蘑菇 5级,lina_1,椰子树 1级,lina_2,椰子树 2级,lina_3,椰子树 3级,lina_4,椰子树 4级,lina_5,椰子树 5级,tinker_1,火山木 1级,tinker_2,火山木 2级,tinker_3,火山木 3级,tinker_4,火山木 4级,tinker_5,火山木 5级,qop_1,狗尾草 1级,qop_2,狗尾草 2级,qop_3,狗尾草 3级,qop_4,狗尾草 4级,qop_5,狗尾草 5级,ns_1,地瓜叶 1级,ns_2,地瓜叶 2级,ns_3,地瓜叶 3级,ns_4,地瓜叶 4级,ns_5,地瓜叶 5级,BRD,黑石深渊,DOTA,刀塔堡垒,CSGO,污手街,C6,魔导师平台,QOP,黑翼血环,NEXUS1F,魔枢第1层,NEXUS2F,魔枢第2层,NEXUS3F,魔枢第3层,NEXUS4F,魔枢第4层,NEXUS5F,魔枢第5层,NEXUS6F,魔枢第6层,NEXUS7F,魔枢第7层,NEXUS8F,魔枢第8层,NEXUS9F,魔枢第9层,NEXUS10F,魔枢第10层,NEXUS11F,魔枢第11层,NEXUS12F,魔枢第12层,NEXUS13F,魔枢第13层,NS,魔枢顶层,STORMEYE,风暴之眼,FROST,霜火岭,DRAGON,龙眠神殿,SKYREACH,通天峰,FARM,半山农场,NEWZUG,新祖尔格拉布,MTH,蔑潮港,TINKER,诺莫瑞根,NASSAR,纳沙尔海湾,WINTER,洛丹伦的冬天,AUTUMN,洛丹伦的秋天,SUMMER,洛丹伦的夏天,SPRING,洛丹伦的春天,PANDA,潘达利亚,TLJD,提拉加德海峡,MUSIC,维克雷斯庄园,ELEPHANT,魔法动物店,CHICK,消逝冰川,UCURVE,阿坤达神殿,CATMIAO,喵人藏身处,MACDON,冥宫,TRAIL,蛇行峡谷,GO1234,日暮广场,MARIO,奇妙玩具店,CUBES,冬幕节小栈,BEGINNER,新手村,BEGINNER_TWO,新手村2,GO,选择线路,GOONE,滑冰手的家,RACE,对战模式,PRAC,练习,AA,艾尔文河,AA2,艾尔文河2,POM,白虎寺,TEST1,青铜试炼,TEST2,白银试炼,TEST3,黄金试炼,WIN1,冰蘑菇通关,WIN2,椰子树通关,WIN3,狗尾草通关,WIN4,地瓜叶通关,WIN5,火山木通关,WINRAN,随机闯关通关,ALLEY,逆风小径,KRZ,卡拉赞,AZARA,艾萨拉,FAIRE,暗月马戏团,DUST,尘泥沼泽,X!!,希利苏斯,CAVERN,时光之穴,BEACH,破碎海滩,STORM,大漩涡,TUNDRA,北风苔原,MOROGH,丹莫罗,NAXX,纳克萨玛斯,NEEDLE,千针石林,ULDUM,奥丹姆,VASJIR,瓦斯琪尔,TEMPLE,黑暗神殿,DARK,黑海岸,ZUG,祖尔格拉布,TUSK,雪流平原,TUSK2,雪流平原2,SS,祖达克,SSOLD,旧祖达克,LICH,冬拥湖,WR,紫罗兰哨站,PUCK,晶歌森林,PUCK2,晶歌森林2,BB,止水河,BB2,止水河2,MORPH,河流之心,MORPH2,河流之心2,FUR,扭木广场,FUR2,扭木广场2,LIGHT,达拉然,DS,风暴峭壁,WINGS,旋云之巅,CM,冰冠冰川,TECH,加基森,TECH2,加基森2,RAZOR,剃刀高地,ENIGMA,冬泉谷,VS,流沙岗哨,VS2,流沙岗哨2,SF,影月谷,SF2,影月谷2,SK,深沙平原,BS,塔纳利斯,BS2,塔纳利斯2,KUNKKA,热砂港,GYRO,科赞,MEEPO,安戈洛环形山,MEEPO2,安戈洛环形山2,PHX,海加尔山,PHX2,海加尔山2,LINA,火焰之地,TA,翡翠梦境,TA2,翡翠梦境2,GIANT,巨兽岛,SOIL,恐惧废土,DEEP,深岩之洲,ASHEN,灰谷,SEABED,烁光海床,ZANGAR,赞加沼泽,ZANGAR2,赞加沼泽2,RKLZ,重返卡拉赞,fansheng,繁盛,biaoche,飚车,wuyu,无语,zuie,罪恶,xuebeng,雪崩,fennu,愤怒,huohuan,火环,lengmo,冷漠,chongzhuang,冲撞,welcome,欢迎来到萌萌的滑冰场╭(′▽`)╯╭(′▽`)╯,welcome_AA,第1季 冰蘑菇,welcome_LICH,第2季 椰子树,welcome_SOIL,第3季 狗尾草,welcome_PRAC,训练场╭(′▽`)╭(′▽`)╯,welcome_EDIT,地图工坊╭(′▽`)╭(′▽`)╯,welcome_TEST1,铜牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST2,银牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST3,金牌老司机考试╭(′▽`)╭(′▽`)╯,welcome_TEST4,铂金老司机考试╭(′▽`)╭(′▽`)╯,welcome_BEGINNER,新手村╭(′▽`)╭(′▽`)╯,welcome_CUSTOM,试玩工坊地图╭(′▽`)╭(′▽`)╯,welcome_RANDOM,随机闯关╭(′▽`)╭(′▽`)╯,welcome_NEXUS1F,第4季 地瓜叶,welcome_FROST,第5季 火山木,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1";
         string[] n2 = l2.Split(',');
         //    d = "rarity_1,普通";
@@ -1647,7 +1665,42 @@ class program
         return shuju2;
 
     }
+    public static void TestMethod()
+    {
+        Console.WriteLine("线程开始");
+        DateTime a = DateTime.Now;
+        while (true)
+        {
 
+            if (DateTime.Now.Hour - a.Hour > 0.5)//判断当前是否是休眠半小时后
+            {
+                // if (DateTime.Now.Hour < 2)//如果当前时间是否在0点
+                Console.WriteLine(DateTime.Now);
+                if (DateTime.Now.Hour == 12 || DateTime.Now.Hour == 0)
+                {
+                  //  Console.WriteLine(DateTime.Now);
+                    string url = "http://gemtd.ppbizon.com/gemtd/201803/goods/list/@76561198083388851";
+                    //  string str1 = "http://gemtd.ppbizon.com/sm/201901/heros/get/@";
+
+                    string shuju = huoquwangye(url);// Console.WriteLine("收到消息是" + shuju);
+                    JObject chuli = (JObject)JsonConvert.DeserializeObject(shuju);
+                    baoshidazhe = tihuan(chuli["onsale"].ToString());
+
+                    string url2 = "http://gemtd.ppbizon.com/sm/goods/list?hehe=";
+                    string shuju2 = huoquwangye(url2);
+                    JObject chuli2 = (JObject)JsonConvert.DeserializeObject(shuju2);
+                    huabingdazhe = tihuan(chuli2["onsale"].ToString());
+                    huoquhuabingshuju("144410032");
+                    MessageManager.SendGroupMessageAsync("693024020", baoshidazhe+"\r\n"+huabingdazhe+"\r\n"+huabingrichang);
+                    Thread.Sleep(21600000);//发送完成后休眠6小时
+                    Console.WriteLine(DateTime.Now);
+                }
+                a = DateTime.Now;
+                Thread.Sleep(1800000);//发送完成后休眠ban小时
+
+            }
+        }
+    }
     static string huoquhuabingshuju(string id)
     {
         string shuju2 = "0";
@@ -1692,6 +1745,79 @@ class program
             crab_level = tihuaner(crab_level);
             string crab_season = chuli["data"][str2]["crab_season"].ToString();
             crab_season = tihuaner(crab_season);
+
+            string rank = chuli["data"][str2]["rank"].ToString();
+            string count = chuli["data"][str2]["count"].ToString();
+
+            //Console.WriteLine("收到消息是" + shuju2);
+            //shuju2 = tihuan(renwu);
+            //Console.WriteLine("tihuan(renwu)" + shuju2);
+            //shuju2 = renwushixian;
+            //Console.WriteLine("renwushixian" + shuju2);
+            //shuju2 = zuihaochengji;
+            //Console.WriteLine("zuihaochengji" + shuju2);
+            //shuju2 = paiming;
+            //Console.WriteLine("paiming" + shuju2);
+            //shuju2 = zuihaochengji;
+            //Console.WriteLine("chengji" + shuju2);
+            //shuju2 = huoqunicheng(id);
+            //Console.WriteLine("nicheng" + shuju2);
+            shuju2 = "查询的昵称是：" + huoqunicheng(id) + "\r\n驾照等级：" + jiazhao + "冰块：" + bingkuai + "滑冰手数量：" + skater_count + "\r\n驾照任务cd：" + test + "\r\n冰女通关cd：" + cm + "\r\n火女通关cd：" + lina + "\r\n女王通关cd：" + qop + "\r\n夜魔通关cd：" + ns + "\r\n修补匠通关cd：" + tinker + "\r\n随机通关cd：" + random + "\r\n赛季cd：" + season + "\r\n日常通关cd：" + daily + "\r\n英雄难度cd：" + rush + "\r\n英雄任务cd：" + extend + "\r\n日常地图：" + crab_season + ":" + crab_level + "\r\n排名：" + rank;
+            Console.WriteLine("zuihou" + shuju2);
+            huabingrichang=crab_season + ":" +crab_level;
+        }
+        catch (WebException webEx)
+        {
+            Console.WriteLine(webEx.Message.ToString());
+        }
+
+        return shuju2;
+
+    }
+  /*  static string baoshixianzaidazhe(string id)
+    {
+        string shuju2 = "0";
+
+        try
+        {
+            string url = "http://gemtd.ppbizon.com/gemtd/201803/goods/list/@76561198083388851";
+          //  string str1 = "http://gemtd.ppbizon.com/sm/201901/heros/get/@";
+           
+            string shuju = huoquwangye(url);
+            // Console.WriteLine("收到消息是" + shuju);
+            JObject chuli = (JObject)JsonConvert.DeserializeObject(shuju);
+            //   Console.WriteLine("收到消息是chuli" + chuli);
+            string jiazhao = chuli["data"][str2]["driver"].ToString();
+            string bingkuai = chuli["data"][str2]["ice"].ToString();
+            string skater_count = chuli["data"][str2]["skater_count"].ToString();
+            //    Console.WriteLine("收到消息是tangguo" + tangguo);
+            string test = chuli["data"][str2]["task"]["test"].ToString();
+            test = shijian(int.Parse(test));
+            string cm = chuli["data"][str2]["task"]["cm"].ToString();
+            cm = shijian(int.Parse(cm));
+            string lina = chuli["data"][str2]["task"]["lina"].ToString();
+            lina = shijian(int.Parse(lina));
+            string qop = chuli["data"][str2]["task"]["qop"].ToString();
+            qop = shijian(int.Parse(qop));
+            string ns = chuli["data"][str2]["task"]["ns"].ToString();
+            ns = shijian(int.Parse(ns));
+            string tinker = chuli["data"][str2]["task"]["tinker"].ToString();
+            tinker = shijian(int.Parse(tinker));
+            string random = chuli["data"][str2]["task"]["random"].ToString();
+            random = shijian(int.Parse(random));
+            string season = chuli["data"][str2]["task"]["season"].ToString();
+            season = shijian(int.Parse(season));
+            string daily = chuli["data"][str2]["task"]["daily"].ToString();
+            daily = shijian(int.Parse(daily));
+            string rush = chuli["data"][str2]["task"]["rush"].ToString();
+            rush = shijian(int.Parse(rush));
+            string extend = chuli["data"][str2]["task"]["extend"].ToString();
+            extend = shijian(int.Parse(extend));
+            string crab_level = chuli["data"][str2]["crab_level"].ToString();
+            crab_level = tihuaner(crab_level);
+            string crab_season = chuli["data"][str2]["crab_season"].ToString();
+            crab_season = tihuaner(crab_season);
+
             string rank = chuli["data"][str2]["rank"].ToString();
             string count = chuli["data"][str2]["count"].ToString();
 
@@ -1718,6 +1844,5 @@ class program
 
         return shuju2;
 
-    }
-
+    }*/
 }
