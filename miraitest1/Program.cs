@@ -13,6 +13,7 @@ using Mirai.Net.Data.Events.Concretes.Message;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System.Threading;
+using System.Timers;
 
 class program
 {
@@ -24,8 +25,13 @@ class program
     static string x = "0";
     static string steamid = "0";
     static string huabingdazhe = "0";
-    static string baoshidazhe = "0";
     static string huabingrichang = "0";
+    static string baoshidazhe = "0";
+    static string huabingdazhetemp = "0";
+    static string baoshidazhetemp = "0";
+    static string huabingrichangtemp = "0";
+    
+
     static async Task Main(string[] args)
     {
         Random ran = new Random();
@@ -33,8 +39,8 @@ class program
         using var bot = new MiraiBot
         {
             Address = "localhost:8080",
-            //   QQ = "2402989185",
-            QQ = "815723827",
+               QQ = "2402989185",
+          // QQ = "815723827",
             VerifyKey = "123456798"
         };
         Console.WriteLine($"本程序已启动");
@@ -51,9 +57,11 @@ class program
             await bot.LaunchAsync();
         }
        
-        Thread t1 = new Thread(new ThreadStart(TestMethod));
-        t1.IsBackground = true;
-        t1.Start();
+       System.Timers.Timer timer = new System.Timers.Timer();
+        timer.Enabled=true;
+        timer.Interval = 600000;
+        timer.Start();
+        timer.Elapsed +=new ElapsedEventHandler(dierxianchengdazhe);
 
         bot.MessageReceived
     .OfType<GroupMessageReceiver>()
@@ -86,6 +94,20 @@ class program
                 await MessageManager.SendGroupMessageAsync(receiver.Id, message);
 
             }
+            if (message.Contains("宝石现在什么打折") || message.Contains("宝石打折") || message.Contains("你懂得") || message.Contains("你懂的"))
+            {
+
+                message = message.Replace("复读", "");
+                await MessageManager.SendGroupMessageAsync(receiver.Id, baoshidazhe2("144410032"));
+
+            }
+            if (message.Contains("滑冰现在什么打折") )
+            {
+
+                message = message.Replace("复读", "");
+                await MessageManager.SendGroupMessageAsync(receiver.Id, huabingdazhe2("144410032"));
+
+            }
             if (message.Contains("查询滑冰数据"))
             {
                 string x = message;
@@ -103,7 +125,7 @@ class program
                 string str = System.Text.RegularExpressions.Regex.Replace(x, @"[^0-9]+", "");
                 steamid = str;
                 string jieguo = huoqubaoshishuju(str);
-                Console.WriteLine("收到消息是" + jieguo);
+              //  Console.WriteLine("收到消息是" + jieguo);
                 await MessageManager.SendGroupMessageAsync(receiver.Id, jieguo);
 
             }
@@ -739,7 +761,7 @@ class program
                 }
 
             }
-            if (message.Contains("宝石现在什么打折") || message.Contains("宝石打折") || message.Contains("你懂得") || message.Contains("你懂的"))
+            if (message.Contains("宝石现在什么打折备用") || message.Contains("宝石打折备用") || message.Contains("你懂得备用") || message.Contains("你懂的备用"))
             {
                 Console.WriteLine($"收到你懂得了");
                 /*  string x = message;
@@ -939,7 +961,7 @@ class program
 
                 }
             }
-            if (message.Contains("滑冰现在什么打折"))
+            if (message.Contains("滑冰现在什么打折备用"))
             {
                 /*  string x = e.Message.Text;
                   string str = System.Text.RegularExpressions.Regex.Replace(x, @"[^0-9]+", "");
@@ -1577,17 +1599,23 @@ class program
         d = d.Replace("items", "\r\n石头饰品");
         return d;
     }
+    static string tihuan3(string shuju)
+    {
+        string d = shuju;
+        d = d.Replace("{", "");
+        d = d.Replace("}", "");
+        d = d.Replace("effect", "特效");
+        d = d.Replace("ability", "");
+        d = d.Replace("\"", "");
+        d = d.Replace("common_hero", "");
+        d = d.Replace("\r\n", "");
+        d = d.Replace(" ", "");
+        return d;
+    }
     static string tihuaner(string shuju)
     {
         string d = shuju;
-        d = d.Replace("ability", "");
-        d = d.Replace("effect", "");
-        d = d.Replace("\r\n", "");
-        d = d.Replace("\"", "");
-        d = d.Replace(" ", "");
-        d = d.Replace("{", "");
-        d = d.Replace("}", "");
-        d = d.Replace(":", "");
+       
         string l = "a407,技能窃取,a208,照明弹,a405,无敌,a406,海妖之歌,a101,冲刺,a101_help,3秒内提高移动速度200,a102,刹车,a101_help,瞬间停住,a103,加速光环,a101_help,1000范围内友军移动速度增加50,a104,减速光环,a101_help,1000范围内敌军移动速度降低100,a201,冰冻,a101_help,使500范围内敌人3秒无法移动,a202,击退,a101_help,击退自己附近的敌人,a203,时光倒流,a101_help,使自己回到四秒前位置,a204,信仰之跃,a101_help,向前跳跃,a205,折光,a206,链接,a207,粘滞,a101_help,10秒内抵挡一次伤害,a301,召唤,a101_help,立刻召唤任意一名队友到你身边,a302,传送,a101_help,立刻传送到一个队友身边,a303,投掷,a101_help,把一个队友扔到另一个队友身上,a305,标记,a304,消失,a401,沉默,a101_help,使2000范围内敌人沉默5秒,a402,复活,a101_help,随机复活一名死去的队友,a403,融化,a404,重生,beginner_hero,入门级 滑冰手,ameteur_hero,业余级 滑冰手,pro_hero,职业级 滑冰手,master_hero,大师级 滑冰手,beginner_ability,入门级 技能,ameteur_ability,业余级 技能,pro_ability,职业级 技能,master_ability,大师级 技能,beginner_effect,入门级 特效,ameteur_effect,业余级 特效,pro_effect,职业级 特效,master_effect,大师级 特效,OhIgota,噢耶，我获得了,h101,船长的鹦鹉,h102,宝石教父Zard-,h103,神兔,h104,粉嫩蝾螈,h105,酒桶浣熊,h106,毛毛鱼,h107,海盗船,h108,达士奇,h109,萌蛛,h110,翠花|红色,h111,白羽鸡,h112,绿毛龟,h113,空心恶魔人,h114,歪脖鸵鸟,h115,跳脚企鹅,h116,胡小桃,h117,小红毛,h118,极速蜗牛,h119,松鼠卫兵,h120,丹顶鹤,h401,NAVI黄鼬,h402,MVP滑板火烈鸟,h403,IG小火龙,h404,LGD的金萌萌,h405,VG飞狐侠|红色,h406,VP北极熊,h407,EG的麋鹿,h201,末日宝宝,h202,赏金宝宝,h203,屠夫宝宝,h204,血魔宝宝,h205,小白虎,h206,海民宝宝,h207,黑鸟宝宝,h208,虚空宝宝,h209,修补匠宝宝,h210,小星月,h301,魔典小龙,h302,斑竹队长,h303,滑板鲨鱼,h304,炸毛小鸡,h305,摇摆蘑菇,h306,坚果松鼠,h307,翠玉小龙,h308,巨鸟多多,h309,机械战驴,h310,基拉魔法师,h211,两栖鱼童,h408,石头人|天辉,h409,石头人|夜魇,h121,双头恶犬,h311,爆眼章鱼,h212,剧毒宝宝,h410,火星车|绿色,h411,火星车|红色,h122,飞僵小宝,h412,对映体|天使,h413,对映体|恶魔,h123,雷克,h312,金龟子,h124,快递青蛙跳跳,h213,不屈战犬,h313,毛茸茸的肥羊羊,h125,赤兔,h126,迅捷魔童,h314,魔暴龙,h127,狂暴野猪,h214,獭龙奥斯基,h215,死神,h315,基王海盗,h216,冰龙宝宝,h316,摇摆的驴革米,h217,忠诚高山牦牛,h317,伐士奇,h415,啾啾,h416,死亡仙知,h414,VG飞狐侠|青色,h318,肉山宝宝,h417,金银狐灵|黑色,h418,金银狐灵|白色,h319,小灰熊,h219,骏马,h320,白色龙蝶,h321,红色龙蝶,h419,风神飞镰,h420,抬轿兄弟,h220,忠诚之犬瓦尔迪,h221,八戒,h222,羊羊羊,h223,草泥马拉玛,h218,桃树精,h128,碧磷|入门,h224,碧磷|业余,h322,碧磷|职业,h421,碧磷|大师,h323,招财猫,h444,百变泽驴斯,h499,死亡仙知|纯金,h129,蠕行水母,h225,胆小南瓜人,h422,长耳兔妖,h226,蟹小蜗|海螺,h227,蟹小蜗|草鞋,h228,蟹小蜗|穷鬼盾,h324,蟹小蜗|死灵书,h325,蟹小蜗|飞鞋,h326,蟹小蜗|莲花球,h423,蟹小蜗|玲珑心,h424,蟹小蜗|冰眼,h425,蟹小蜗|冠军盾,h134,矿车鼠|矿车,h234,矿车鼠|蜡烛,h335,矿车鼠|挖掘机,h428,矿车鼠|纯金e101,圣洁精华,e102,玛瑙光泽,e103,芳晓之庆,e104,水晶裂痕,e105,腐化触须,e106,毒虫肆虐,e107,夜魇暗潮腐化,e108,夜魇暗潮荒芜,e201,暗淡幻象,e202,冥魂大帝,e203,翡翠外质,e204,祸乱之源,e205,毒蕈之径,e206,2012冠军之辉,e207,2013冠军之辉,e208,2014冠军之辉,e301,骄阳之炎,e302,嬉戏蝴蝶,e303,冰女特效,e304,幸福之赐,e305,绽放莲花,e306,迎霜冰雪,e307,燃烧末日,e308,鱼泡泡,e401,燃焰之触,e402,霜寒之触,e403,迈达斯之触,e404,离子之汽,e109,大地灵气,e110,蓝色风暴,e309,紫色激情,e310,白雪飘零,e311,一股邪火,e209,霓虹蝴蝶,e210,旋转火花,e312,金币飞舞,e313,光辉岁月,e314,紫色星云,e315,噩梦缠绕,e111,一起哈啤,e112,宝石光泽,e211,雾气环绕,e212,迷幻缠绕,e405,光芒万丈,e316,星星,e113,污污污污,e499,金龙鱼,e114,雾里看花,e317,心心相印,e318,2017冠军之辉,myskater,我的滑冰手车库,more_heros,通过老司机考试（铜牌、银牌、金牌、铂金）以获得更多车库位置,not_available_now,面板崩溃，暂不可用,h327,迅捷远足毛驴,h229,竭智法师,h130,驴法师,h328,天猫地狗,h230,蓝心白隼,h131,丰臀公主,h426,绽放树精,h329,万圣树群,h231,莲花人,h132,焚牙树精,h330,咬人箱|大嘴,h331,咬人箱|洛克,h232,咬人箱|甲虫,h133,咬人箱|机械,h427,小恶魔|飞毯,h333,小恶魔|海龟,h334,小恶魔|螃蟹,h233,小恶魔|鹦鹉,h332,布狗,e319,灿若繁星,e320,大漩涡,e407,飞沙走石,e406,星光蓝宝石,e409,血之环,e408,暗月来袭e213,小家碧玉,e214,欲火焚身,e321,通灵术,e410,雪精灵,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,";
         string[] n = l.Split(',');
         //    d = "rarity_1,普通";
@@ -1640,22 +1668,23 @@ class program
             string paiming = chuli["data"][str2]["rank_info"]["rankall"].ToString();
             string zuihaochengji = chuli["data"][str2]["rank_info"]["best_kills"].ToString();
             string saijizhuti = chuli["word_object"]["name"].ToString();
-            string yingxiongci = tihuaner(tihuan(chuli["data"][str2]["hero_sea"].ToString()));
-            Console.WriteLine("收到消息是" + shuju2);
-            shuju2 = tihuan(renwu);
-            Console.WriteLine("tihuan(renwu)" + shuju2);
-            shuju2 = renwushixian;
-            Console.WriteLine("renwushixian" + shuju2);
-            shuju2 = zuihaochengji;
-            Console.WriteLine("zuihaochengji" + shuju2);
-            shuju2 = paiming;
-            Console.WriteLine("paiming" + shuju2);
-            shuju2 = zuihaochengji;
-            Console.WriteLine("chengji" + shuju2);
-            shuju2 = huoqunicheng(id);
-            Console.WriteLine("nicheng" + shuju2);
+            string yingxiongci = tihuan3(tihuan(chuli["data"][str2]["hero_sea"].ToString()));
+
+            //Console.WriteLine("收到消息是" + shuju2);
+            //shuju2 = tihuan(renwu);
+            //Console.WriteLine("tihuan(renwu)" + shuju2);
+            //shuju2 = renwushixian;
+            //Console.WriteLine("renwushixian" + shuju2);
+            //shuju2 = zuihaochengji;
+            //Console.WriteLine("zuihaochengji" + shuju2);
+            //shuju2 = paiming;
+            //Console.WriteLine("paiming" + shuju2);
+            //shuju2 = zuihaochengji;
+            //Console.WriteLine("chengji" + shuju2);
+            //shuju2 = huoqunicheng(id);
+            //Console.WriteLine("nicheng" + shuju2);
             shuju2 = "查询的昵称是：" + huoqunicheng(id) + "\r\n贝壳：" + beike + "冰块：" + bingkuai + "糖果：" + tangguo + "\r\n任务：" + tihuan( renwu) + "\r\n任务时限：" + renwushixian + "\r\n当前排名：" + paiming + "\r\n最好成绩：" + zuihaochengji + "\r\n赛季主题：" + saijizhuti+"英雄池"+yingxiongci;
-            Console.WriteLine("zuihou" + shuju2);
+          //  Console.WriteLine("zuihou" + shuju2);
         }
         catch (WebException webEx)
         {
@@ -1665,41 +1694,46 @@ class program
         return shuju2;
 
     }
-    public static void TestMethod()
+    public static void dierxianchengdazhe(Object source, System.Timers.ElapsedEventArgs e)
     {
-        Console.WriteLine("线程开始");
-        DateTime a = DateTime.Now;
-        while (true)
-        {
 
-            if (DateTime.Now.Hour - a.Hour > 0.5)//判断当前是否是休眠半小时后
+        baoshidazhe2("12345678");
+        huabingdazhe2("12345678");
+        huoquhuabingshuju("12345678");
+
+        // Console.WriteLine(DateTime.Now);
+
+        if (huabingdazhe!=huabingdazhetemp|| baoshidazhe != baoshidazhetemp || huabingrichang != huabingrichangtemp)
             {
-                // if (DateTime.Now.Hour < 2)//如果当前时间是否在0点
-                Console.WriteLine(DateTime.Now);
-                if (DateTime.Now.Hour == 12 || DateTime.Now.Hour == 0)
-                {
-                  //  Console.WriteLine(DateTime.Now);
-                    string url = "http://gemtd.ppbizon.com/gemtd/201803/goods/list/@76561198083388851";
-                    //  string str1 = "http://gemtd.ppbizon.com/sm/201901/heros/get/@";
-
-                    string shuju = huoquwangye(url);// Console.WriteLine("收到消息是" + shuju);
-                    JObject chuli = (JObject)JsonConvert.DeserializeObject(shuju);
-                    baoshidazhe = tihuan(chuli["onsale"].ToString());
-
-                    string url2 = "http://gemtd.ppbizon.com/sm/goods/list?hehe=";
-                    string shuju2 = huoquwangye(url2);
-                    JObject chuli2 = (JObject)JsonConvert.DeserializeObject(shuju2);
-                    huabingdazhe = tihuan(chuli2["onsale"].ToString());
-                    huoquhuabingshuju("144410032");
-                    MessageManager.SendGroupMessageAsync("693024020", baoshidazhe+"\r\n"+huabingdazhe+"\r\n"+huabingrichang);
-                    Thread.Sleep(21600000);//发送完成后休眠6小时
-                    Console.WriteLine(DateTime.Now);
-                }
-                a = DateTime.Now;
-                Thread.Sleep(1800000);//发送完成后休眠ban小时
-
+                   MessageManager.SendGroupMessageAsync("693024020", "打折更新啦！\r\n" + baoshidazhe +"\r\n"+huabingdazhe+"\r\n"+huabingrichang);
+                   MessageManager.SendGroupMessageAsync("881377951", "打折更新啦！\r\n" + baoshidazhe + "\r\n" + huabingdazhe + "\r\n" + huabingrichang);
+                huabingdazhetemp = huabingdazhe;
+                baoshidazhetemp = baoshidazhe;
+                huabingrichangtemp = huabingrichang;
             }
-        }
+
+
+        //if (DateTime.Now.Minute == 12 || DateTime.Now.Hour == 0)
+        //{
+        //  //  Console.WriteLine(DateTime.Now);
+        //    string url = "http://gemtd.ppbizon.com/gemtd/201803/goods/list/@76561198083388851";
+        //    //  string str1 = "http://gemtd.ppbizon.com/sm/201901/heros/get/@";
+
+        //    string shuju = huoquwangye(url);// Console.WriteLine("收到消息是" + shuju);
+        //    JObject chuli = (JObject)JsonConvert.DeserializeObject(shuju);
+        //    baoshidazhe = tihuan(chuli["onsale"].ToString());
+
+        //    string url2 = "http://gemtd.ppbizon.com/sm/goods/list?hehe=";
+        //    string shuju2 = huoquwangye(url2);
+        //    JObject chuli2 = (JObject)JsonConvert.DeserializeObject(shuju2);
+        //    huabingdazhe = tihuaner(chuli2["onsale"].ToString());
+        //    huoquhuabingshuju("144410032");
+        //    MessageManager.SendGroupMessageAsync("693024020", baoshidazhe+"\r\n"+huabingdazhe+"\r\n"+huabingrichang);
+        //    MessageManager.SendGroupMessageAsync("881377951", baoshidazhe + "\r\n" + huabingdazhe + "\r\n" + huabingrichang);
+
+        //  //  Console.WriteLine(DateTime.Now);
+        //}
+
     }
     static string huoquhuabingshuju(string id)
     {
@@ -1762,8 +1796,8 @@ class program
             //Console.WriteLine("chengji" + shuju2);
             //shuju2 = huoqunicheng(id);
             //Console.WriteLine("nicheng" + shuju2);
-            shuju2 = "查询的昵称是：" + huoqunicheng(id) + "\r\n驾照等级：" + jiazhao + "冰块：" + bingkuai + "滑冰手数量：" + skater_count + "\r\n驾照任务cd：" + test + "\r\n冰女通关cd：" + cm + "\r\n火女通关cd：" + lina + "\r\n女王通关cd：" + qop + "\r\n夜魔通关cd：" + ns + "\r\n修补匠通关cd：" + tinker + "\r\n随机通关cd：" + random + "\r\n赛季cd：" + season + "\r\n日常通关cd：" + daily + "\r\n英雄难度cd：" + rush + "\r\n英雄任务cd：" + extend + "\r\n日常地图：" + crab_season + ":" + crab_level + "\r\n排名：" + rank;
-            Console.WriteLine("zuihou" + shuju2);
+            shuju2 = "查询的昵称是：" + huoqunicheng(id) + "\r\n驾照等级：" + jiazhao + "冰块：" + bingkuai + "滑冰手数量：" + skater_count + "\r\n驾照任务cd：" + test + "\r\n冰女通关cd：" + cm + "\r\n火女通关cd：" + lina + "\r\n女王通关cd：" + qop + "\r\n夜魔通关cd：" + ns + "\r\n修补匠通关cd：" + tinker + "\r\n随机通关cd：" + random + "\r\n赛季cd：" + season + "\r\n日常通关cd：" + daily + "\r\n英雄难度cd：" + rush + "\r\n英雄任务cd：" + extend + "\r\n日常地图：" + crab_season + ":" + crab_level + "\r\n排名：" + rank+"\r\ncount:"+count;
+         //   Console.WriteLine("zuihou" + shuju2);
             huabingrichang=crab_season + ":" +crab_level;
         }
         catch (WebException webEx)
@@ -1774,68 +1808,36 @@ class program
         return shuju2;
 
     }
-  /*  static string baoshixianzaidazhe(string id)
+    static string baoshidazhe2(string id)
     {
-        string shuju2 = "0";
+        string shuju2 = "";
 
         try
         {
-            string url = "http://gemtd.ppbizon.com/gemtd/201803/goods/list/@76561198083388851";
-          //  string str1 = "http://gemtd.ppbizon.com/sm/201901/heros/get/@";
-           
+
+            string str1 = "http://gemtd.ppbizon.com/gemtd/201803/goods/list/@76561198083388851";
+            string url = str1;
             string shuju = huoquwangye(url);
             // Console.WriteLine("收到消息是" + shuju);
             JObject chuli = (JObject)JsonConvert.DeserializeObject(shuju);
             //   Console.WriteLine("收到消息是chuli" + chuli);
-            string jiazhao = chuli["data"][str2]["driver"].ToString();
-            string bingkuai = chuli["data"][str2]["ice"].ToString();
-            string skater_count = chuli["data"][str2]["skater_count"].ToString();
-            //    Console.WriteLine("收到消息是tangguo" + tangguo);
-            string test = chuli["data"][str2]["task"]["test"].ToString();
-            test = shijian(int.Parse(test));
-            string cm = chuli["data"][str2]["task"]["cm"].ToString();
-            cm = shijian(int.Parse(cm));
-            string lina = chuli["data"][str2]["task"]["lina"].ToString();
-            lina = shijian(int.Parse(lina));
-            string qop = chuli["data"][str2]["task"]["qop"].ToString();
-            qop = shijian(int.Parse(qop));
-            string ns = chuli["data"][str2]["task"]["ns"].ToString();
-            ns = shijian(int.Parse(ns));
-            string tinker = chuli["data"][str2]["task"]["tinker"].ToString();
-            tinker = shijian(int.Parse(tinker));
-            string random = chuli["data"][str2]["task"]["random"].ToString();
-            random = shijian(int.Parse(random));
-            string season = chuli["data"][str2]["task"]["season"].ToString();
-            season = shijian(int.Parse(season));
-            string daily = chuli["data"][str2]["task"]["daily"].ToString();
-            daily = shijian(int.Parse(daily));
-            string rush = chuli["data"][str2]["task"]["rush"].ToString();
-            rush = shijian(int.Parse(rush));
-            string extend = chuli["data"][str2]["task"]["extend"].ToString();
-            extend = shijian(int.Parse(extend));
-            string crab_level = chuli["data"][str2]["crab_level"].ToString();
-            crab_level = tihuaner(crab_level);
-            string crab_season = chuli["data"][str2]["crab_season"].ToString();
-            crab_season = tihuaner(crab_season);
-
-            string rank = chuli["data"][str2]["rank"].ToString();
-            string count = chuli["data"][str2]["count"].ToString();
-
-            //Console.WriteLine("收到消息是" + shuju2);
-            //shuju2 = tihuan(renwu);
-            //Console.WriteLine("tihuan(renwu)" + shuju2);
-            //shuju2 = renwushixian;
-            //Console.WriteLine("renwushixian" + shuju2);
-            //shuju2 = zuihaochengji;
-            //Console.WriteLine("zuihaochengji" + shuju2);
-            //shuju2 = paiming;
-            //Console.WriteLine("paiming" + shuju2);
-            //shuju2 = zuihaochengji;
-            //Console.WriteLine("chengji" + shuju2);
-            //shuju2 = huoqunicheng(id);
-            //Console.WriteLine("nicheng" + shuju2);
-            shuju2 = "查询的昵称是：" + huoqunicheng(id) + "\r\n驾照等级：" + jiazhao + "冰块：" + bingkuai + "滑冰手数量：" + skater_count + "\r\n驾照任务cd：" + test + "\r\n冰女通关cd：" + cm + "\r\n火女通关cd：" + lina + "\r\n女王通关cd：" + qop + "\r\n夜魔通关cd：" + ns + "\r\n修补匠通关cd：" + tinker + "\r\n随机通关cd：" + random + "\r\n赛季cd：" + season + "\r\n日常通关cd：" + daily + "\r\n英雄难度cd：" + rush + "\r\n英雄任务cd：" + extend + "\r\n日常地图：" + crab_season + ":" + crab_level + "\r\n排名：" + rank;
-            Console.WriteLine("zuihou" + shuju2);
+            JObject chuli2 = (JObject?)chuli["list"];
+            JObject jo = JObject.Parse(chuli2.ToString());//便利chuli所有数据。item.mane是key item.Value是key的值
+            IEnumerable<JProperty> properties = jo.Properties();
+            foreach (JProperty item in properties)
+            {
+                shuju2 = shuju2 + item.Value["id"].ToString();
+                //Console.WriteLine(item.Name);
+                shuju2 = shuju2 + item.Value["price"].ToString();
+                shuju2 = shuju2 + item.Value["rarity"].ToString();
+                shuju2 = shuju2 + "\r\n";
+                //key = item.Name;
+                //type = item.Value;
+            }
+            baoshidazhe = tihuan(chuli["onsale"].ToString());
+            shuju2 = shuju2 + "现在半价" + chuli["onsale"].ToString() + "\r\n" + shijian(int.Parse(chuli["expire"].ToString()));
+            shuju2 = tihuan(shuju2);
+            shuju2 = shuju2.Replace("b2017110", "倒霉盒子");
         }
         catch (WebException webEx)
         {
@@ -1844,5 +1846,116 @@ class program
 
         return shuju2;
 
-    }*/
+    }
+    static string huabingdazhe2(string id)
+    {
+        string shuju2 = "";
+
+        try
+        {
+
+            string str1 = "http://gemtd.ppbizon.com/sm/goods/list?hehe=";
+            string url = str1;
+            string shuju = huoquwangye(url);
+            // Console.WriteLine("收到消息是" + shuju);
+            JObject chuli = (JObject)JsonConvert.DeserializeObject(shuju);
+            //   Console.WriteLine("收到消息是chuli" + chuli);
+            JObject chuli2 = (JObject?)chuli["list"];
+            JObject jo = JObject.Parse(chuli2.ToString());//便利chuli所有数据。item.mane是key item.Value是key的值
+            IEnumerable<JProperty> properties = jo.Properties();
+            foreach (JProperty item in properties)
+            {
+                shuju2 = shuju2 + item.Value["id"].ToString();
+                //Console.WriteLine(item.Name);
+                shuju2 = shuju2 + item.Value["price"].ToString();
+                shuju2 = shuju2 + item.Value["rarity"].ToString();
+                shuju2 = shuju2 + "\r\n";
+                //key = item.Name;
+                //type = item.Value;
+            }
+           huabingdazhe = tihuaner(chuli["onsale"].ToString());
+            shuju2 = shuju2 + "现在半价" + chuli["onsale"].ToString() + "\r\n" + shijian(int.Parse(chuli["expire"].ToString()));
+            shuju2 = tihuaner(shuju2);
+            shuju2 = shuju2.Replace("h0", "倒霉盒子");
+        }
+        catch (WebException webEx)
+        {
+            Console.WriteLine(webEx.Message.ToString());
+        }
+
+        return shuju2;
+
+    }
+
+    /*  static string baoshixianzaidazhe(string id)
+      {
+          string shuju2 = "0";
+
+          try
+          {
+              string url = "http://gemtd.ppbizon.com/gemtd/201803/goods/list/@76561198083388851";
+            //  string str1 = "http://gemtd.ppbizon.com/sm/201901/heros/get/@";
+
+              string shuju = huoquwangye(url);
+              // Console.WriteLine("收到消息是" + shuju);
+              JObject chuli = (JObject)JsonConvert.DeserializeObject(shuju);
+              //   Console.WriteLine("收到消息是chuli" + chuli);
+              string jiazhao = chuli["data"][str2]["driver"].ToString();
+              string bingkuai = chuli["data"][str2]["ice"].ToString();
+              string skater_count = chuli["data"][str2]["skater_count"].ToString();
+              //    Console.WriteLine("收到消息是tangguo" + tangguo);
+              string test = chuli["data"][str2]["task"]["test"].ToString();
+              test = shijian(int.Parse(test));
+              string cm = chuli["data"][str2]["task"]["cm"].ToString();
+              cm = shijian(int.Parse(cm));
+              string lina = chuli["data"][str2]["task"]["lina"].ToString();
+              lina = shijian(int.Parse(lina));
+              string qop = chuli["data"][str2]["task"]["qop"].ToString();
+              qop = shijian(int.Parse(qop));
+              string ns = chuli["data"][str2]["task"]["ns"].ToString();
+              ns = shijian(int.Parse(ns));
+              string tinker = chuli["data"][str2]["task"]["tinker"].ToString();
+              tinker = shijian(int.Parse(tinker));
+              string random = chuli["data"][str2]["task"]["random"].ToString();
+              random = shijian(int.Parse(random));
+              string season = chuli["data"][str2]["task"]["season"].ToString();
+              season = shijian(int.Parse(season));
+              string daily = chuli["data"][str2]["task"]["daily"].ToString();
+              daily = shijian(int.Parse(daily));
+              string rush = chuli["data"][str2]["task"]["rush"].ToString();
+              rush = shijian(int.Parse(rush));
+              string extend = chuli["data"][str2]["task"]["extend"].ToString();
+              extend = shijian(int.Parse(extend));
+              string crab_level = chuli["data"][str2]["crab_level"].ToString();
+              crab_level = tihuaner(crab_level);
+              string crab_season = chuli["data"][str2]["crab_season"].ToString();
+              crab_season = tihuaner(crab_season);
+
+              string rank = chuli["data"][str2]["rank"].ToString();
+              string count = chuli["data"][str2]["count"].ToString();
+
+              //Console.WriteLine("收到消息是" + shuju2);
+              //shuju2 = tihuan(renwu);
+              //Console.WriteLine("tihuan(renwu)" + shuju2);
+              //shuju2 = renwushixian;
+              //Console.WriteLine("renwushixian" + shuju2);
+              //shuju2 = zuihaochengji;
+              //Console.WriteLine("zuihaochengji" + shuju2);
+              //shuju2 = paiming;
+              //Console.WriteLine("paiming" + shuju2);
+              //shuju2 = zuihaochengji;
+              //Console.WriteLine("chengji" + shuju2);
+              //shuju2 = huoqunicheng(id);
+              //Console.WriteLine("nicheng" + shuju2);
+              shuju2 = "查询的昵称是：" + huoqunicheng(id) + "\r\n驾照等级：" + jiazhao + "冰块：" + bingkuai + "滑冰手数量：" + skater_count + "\r\n驾照任务cd：" + test + "\r\n冰女通关cd：" + cm + "\r\n火女通关cd：" + lina + "\r\n女王通关cd：" + qop + "\r\n夜魔通关cd：" + ns + "\r\n修补匠通关cd：" + tinker + "\r\n随机通关cd：" + random + "\r\n赛季cd：" + season + "\r\n日常通关cd：" + daily + "\r\n英雄难度cd：" + rush + "\r\n英雄任务cd：" + extend + "\r\n日常地图：" + crab_season + ":" + crab_level + "\r\n排名：" + rank;
+              Console.WriteLine("zuihou" + shuju2);
+          }
+          catch (WebException webEx)
+          {
+              Console.WriteLine(webEx.Message.ToString());
+          }
+
+          return shuju2;
+
+      }*/
 }
